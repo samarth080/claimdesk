@@ -53,7 +53,7 @@ export function RuleTrace({
           return (
             <li
               key={entry.code}
-              className={`grid grid-cols-[28px_minmax(0,1fr)_auto] gap-2 border px-3 py-2.5 ${style.row}`}
+              className={`grid grid-cols-[28px_minmax(0,1fr)_auto] gap-2 rounded-lg border px-3 py-2.5 ${style.row}`}
             >
               <span className="font-mono text-[10px] tabular-nums text-zinc-400">
                 {String(index + 1).padStart(2, "0")}

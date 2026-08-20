@@ -56,7 +56,7 @@ export function EvidenceTimeline({
                 aria-hidden="true"
                 className={`relative z-10 mt-1 size-4 border-2 ${style.dot}`}
               />
-              <div className="min-w-0 border border-zinc-200 bg-white">
+              <div className="min-w-0 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
                 <div className="flex flex-wrap items-start justify-between gap-3 border-b border-zinc-100 px-4 py-3">
                   <div>
                     <p className="text-sm font-medium text-zinc-900">

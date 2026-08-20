@@ -7,6 +7,7 @@ import {
   answerCashbackClarification,
   diagnoseCashbackClaim,
 } from "@/app/actions";
+import { AppHeader } from "@/components/app-header";
 import { ClarifyingQuestionForm } from "@/components/clarifying-question-form";
 import { ManualClaimForm } from "@/components/manual-claim-form";
 import type {
@@ -332,52 +333,16 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
     response && !response.success && response.kind === "error" ? response : null;
 
   return (
-    <main className="min-h-screen bg-zinc-50 text-zinc-950">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-          <div className="flex items-center gap-3">
-            <span className="flex size-7 items-center justify-center bg-emerald-700 font-mono text-xs font-semibold text-white">
-              CD
-            </span>
-            <div>
-              <p className="text-sm font-semibold tracking-tight">ClaimDesk</p>
-              <p className="text-[11px] text-zinc-500">Cashback claim triage</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1">
-            <span className="hidden items-center gap-2 px-3 text-xs text-zinc-500 sm:flex">
-              <span className="size-1.5 bg-emerald-500" />
-              Synthetic demo account
-            </span>
-            <Link
-              href="/demo"
-              className="border border-zinc-200 px-3 py-2 text-xs font-medium text-zinc-600 transition hover:border-zinc-400 hover:text-zinc-950"
-            >
-              Demo
-            </Link>
-            <Link
-              href="/agent"
-              className="border border-zinc-200 px-3 py-2 text-xs font-medium text-zinc-600 transition hover:border-zinc-400 hover:text-zinc-950"
-            >
-              Agent queue
-            </Link>
-            <Link
-              href="/impact"
-              className="hidden border border-zinc-200 px-3 py-2 text-xs font-medium text-zinc-600 transition hover:border-zinc-400 hover:text-zinc-950 sm:inline-flex"
-            >
-              Impact
-            </Link>
-          </div>
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+      <AppHeader active="intake" subtitle="CashKaro support concept" />
 
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:py-16">
         <div className="min-w-0">
           <div className="max-w-2xl">
             {demoActive && demoScenario ? (
-              <div className="mb-6 flex flex-col gap-3 border-l-2 border-emerald-600 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mb-6 flex flex-col gap-3 rounded-r-lg border-l-[3px] border-[#f37021] bg-[#fff5ed] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-emerald-700">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#d6570b]">
                     Demo scenario · {demoScenario.name}
                   </p>
                   <p className="mt-1 text-xs leading-5 text-zinc-600">
@@ -389,8 +354,8 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
                 </Link>
               </div>
             ) : null}
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-emerald-700">
-              Missing cashback
+            <p className="brand-eyebrow font-mono text-[11px] uppercase tracking-[0.18em]">
+              CashKaro support concept
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-zinc-950 sm:text-4xl">
               Tell us what happened.
@@ -404,7 +369,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
           <div className="mt-8 max-w-2xl">
             {status === "idle" ? (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="border border-zinc-300 bg-white focus-within:border-emerald-700 focus-within:ring-1 focus-within:ring-emerald-700">
+                <div className="brand-panel overflow-hidden rounded-xl border focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
                   <label
                     htmlFor="claim-description"
                     className="block border-b border-zinc-100 px-4 py-3 text-xs font-medium text-zinc-700"
@@ -434,7 +399,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
                   <button
                     type="submit"
                     disabled={rawText.trim().length < 12}
-                    className="shrink-0 bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 disabled:cursor-not-allowed disabled:bg-zinc-300"
+                    className="brand-button shrink-0 rounded-lg px-5 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:shadow-none"
                   >
                     Check my claim
                   </button>
@@ -481,7 +446,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
           </div>
         </div>
 
-        <aside className="h-fit border-t border-zinc-300 pt-5 lg:mt-28">
+        <aside className="brand-panel h-fit rounded-xl border p-5 lg:mt-28">
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
             What we check
           </p>
@@ -496,7 +461,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
               </li>
             ))}
           </ol>
-          <p className="mt-6 border-l-2 border-zinc-300 pl-3 text-[11px] leading-5 text-zinc-500">
+          <p className="mt-6 border-l-2 border-[#0b5fc6] bg-[#eef6ff] px-3 py-2 text-[11px] leading-5 text-zinc-600">
             Diagnosis is deterministic. No language model chooses the outcome.
           </p>
         </aside>

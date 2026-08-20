@@ -47,7 +47,7 @@ function AssumptionInput({
       <label htmlFor={id} className="text-xs font-medium text-zinc-700">
         {label}
       </label>
-      <div className="mt-2 flex border border-zinc-300 bg-white focus-within:border-emerald-700 focus-within:ring-1 focus-within:ring-emerald-700">
+      <div className="mt-2 flex overflow-hidden rounded-lg border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
         {prefix ? (
           <span className="border-r border-zinc-200 px-3 py-2.5 font-mono text-sm text-zinc-500">
             {prefix}
@@ -98,7 +98,7 @@ export function AssumptionsCalculator({
   return (
     <section
       aria-labelledby="impact-model-title"
-      className="border border-zinc-200 bg-white"
+      className="brand-panel overflow-hidden rounded-xl border"
     >
       <div className="grid lg:grid-cols-[360px_minmax(0,1fr)]">
         <div className="border-b border-zinc-200 bg-zinc-50 px-5 py-5 lg:border-b-0 lg:border-r">

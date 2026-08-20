@@ -6,7 +6,7 @@ export function CasePacket({ packet }: { packet: AgentCasePacket }) {
   return (
     <section
       aria-labelledby={`packet-${packet.caseId}`}
-      className="border border-blue-200 bg-blue-50/40"
+      className="overflow-hidden rounded-xl border border-blue-200 bg-blue-50/40 shadow-sm"
     >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-blue-200 px-5 py-4">
         <div>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-
+import { AppHeader } from "@/components/app-header";
 import { ClaimQueue } from "@/components/agent/claim-queue";
 import { loadAgentQueue } from "@/lib/agent/queue";
 
@@ -37,47 +36,8 @@ export default async function AgentPage() {
   const queue = await loadAgentQueue();
 
   return (
-    <main className="min-h-screen bg-zinc-100 text-zinc-950">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-3 sm:px-8">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              aria-label="ClaimDesk intake"
-              className="flex size-7 items-center justify-center bg-emerald-700 font-mono text-xs font-semibold text-white"
-            >
-              CD
-            </Link>
-            <div>
-              <p className="text-sm font-semibold tracking-tight">ClaimDesk</p>
-              <p className="text-[11px] text-zinc-500">Support operations</p>
-            </div>
-          </div>
-          <nav aria-label="Primary navigation" className="flex items-center gap-1">
-            <Link
-              href="/"
-              className="px-3 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-950"
-            >
-              Claim intake
-            </Link>
-            <Link
-              href="/demo"
-              className="px-3 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-950"
-            >
-              Demo
-            </Link>
-            <span className="border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-medium text-blue-800">
-              Agent queue
-            </span>
-            <Link
-              href="/impact"
-              className="px-3 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-950"
-            >
-              Impact
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+      <AppHeader active="agent" subtitle="CashKaro support operations" maxWidth="wide" />
 
       <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:py-10">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -107,7 +67,7 @@ export default async function AgentPage() {
 
         <section
           aria-label="Queue summary"
-          className="mt-7 grid border border-zinc-200 bg-white sm:grid-cols-2 lg:grid-cols-4"
+          className="brand-panel mt-7 grid overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-4"
         >
           <Metric
             label="Open escalations"

@@ -9,7 +9,7 @@ function GoodwillReasoning({ claim }: { claim: AgentClaimView }) {
   if (!claim.goodwill) return null;
 
   return (
-    <section className="mt-6 border border-zinc-200 bg-zinc-50 p-4">
+    <section className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">
@@ -26,7 +26,7 @@ function GoodwillReasoning({ claim }: { claim: AgentClaimView }) {
       </div>
       <ul className="mt-3 grid gap-2 sm:grid-cols-3">
         {claim.goodwill.checks.map((check) => (
-          <li key={check.id} className="border border-zinc-200 bg-white p-3">
+          <li key={check.id} className="rounded-lg border border-zinc-200 bg-white p-3">
             <div className="flex items-center gap-2">
               <span
                 className={`size-2 ${check.passed ? "bg-emerald-500" : "bg-amber-500"}`}
@@ -48,7 +48,7 @@ function GoodwillReasoning({ claim }: { claim: AgentClaimView }) {
 export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
   if (claims.length === 0) {
     return (
-      <div className="border border-zinc-200 bg-white px-6 py-12 text-center">
+      <div className="brand-panel rounded-xl border px-6 py-12 text-center">
         <p className="text-sm font-medium text-zinc-900">No escalated claims</p>
         <p className="mt-1 text-xs text-zinc-500">
           Correctly escalated cases will appear here with their evidence packet.
@@ -58,7 +58,7 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
   }
 
   return (
-    <div className="border-x border-t border-zinc-200 bg-white">
+    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.045)]">
       <div className="hidden grid-cols-[130px_minmax(180px,1fr)_180px_120px_130px_92px] gap-4 border-b border-zinc-200 bg-zinc-50 px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-400 lg:grid">
         <span>Case</span>
         <span>Claimant</span>

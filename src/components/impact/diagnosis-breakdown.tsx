@@ -59,7 +59,7 @@ export function DiagnosisBreakdown({
         </div>
       </div>
 
-      <div className="mt-5 overflow-x-auto border border-zinc-200 bg-white">
+      <div className="mt-5 overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.04)]">
         <table className="w-full min-w-[820px] border-collapse text-left">
           <thead className="border-b border-zinc-200 bg-zinc-50 font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-400">
             <tr>

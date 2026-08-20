@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
+  --background: #f6f7f9;
+  --foreground: #161616;
+  --brand-orange: #f37021;
+  --brand-orange-dark: #df5d12;
+  --brand-blue: #0b5fc6;
+  --brand-blue-dark: #084a9c;
+  --brand-orange-soft: #fff5ed;
+  --brand-blue-soft: #eef6ff;
 }
 
 @theme inline {
@@ -16,4 +22,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #ffd7bd;
+  color: #161616;
+}
+
+.brand-eyebrow {
+  color: var(--brand-orange);
+}
+
+.brand-button {
+  background: var(--brand-orange);
+  color: white;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+.brand-button:hover {
+  background: var(--brand-orange-dark);
+}
+
+.brand-button:focus-visible {
+  outline: 2px solid var(--brand-orange);
+  outline-offset: 2px;
+}
+
+.brand-panel {
+  border-color: #e4e4e7;
+  background: white;
+  box-shadow: 0 8px 24px rgb(24 24 27 / 0.045);
 }

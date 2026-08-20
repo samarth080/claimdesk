@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ClaimDesk",
-  description: "Deterministic cashback claim triage prototype",
+  description: "Cashback claim triage for fast, evidence-led resolution",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
