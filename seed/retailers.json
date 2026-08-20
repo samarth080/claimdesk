@@ -1,0 +1,68 @@
+[
+  {
+    "key": "nimbus",
+    "name": "Nimbus Mart",
+    "trackingSlaHours": 24,
+    "confirmationWindowDays": 30,
+    "excludedCategories": ["Gift cards", "Precious metals"],
+    "allowsCouponStacking": false,
+    "allowsCartPreloading": false,
+    "knownDeeplinkIssue": false,
+    "termsUrl": "https://example.com/nimbus/terms"
+  },
+  {
+    "key": "cedar",
+    "name": "Cedar & Loom",
+    "trackingSlaHours": 48,
+    "confirmationWindowDays": 45,
+    "excludedCategories": ["Gift cards"],
+    "allowsCouponStacking": false,
+    "allowsCartPreloading": false,
+    "knownDeeplinkIssue": true,
+    "termsUrl": "https://example.com/cedar-and-loom/terms"
+  },
+  {
+    "key": "orbit",
+    "name": "Orbit Electronics",
+    "trackingSlaHours": 72,
+    "confirmationWindowDays": 60,
+    "excludedCategories": ["Extended warranty", "Gift cards"],
+    "allowsCouponStacking": false,
+    "allowsCartPreloading": false,
+    "knownDeeplinkIssue": true,
+    "termsUrl": "https://example.com/orbit/terms"
+  },
+  {
+    "key": "pantry",
+    "name": "PantryPilot",
+    "trackingSlaHours": 12,
+    "confirmationWindowDays": 21,
+    "excludedCategories": ["Alcohol", "Tobacco"],
+    "allowsCouponStacking": true,
+    "allowsCartPreloading": true,
+    "knownDeeplinkIssue": false,
+    "termsUrl": "https://example.com/pantrypilot/terms"
+  },
+  {
+    "key": "trailhead",
+    "name": "Trailhead Travel",
+    "trackingSlaHours": 48,
+    "confirmationWindowDays": 90,
+    "excludedCategories": ["Taxes and fees", "Travel insurance"],
+    "allowsCouponStacking": false,
+    "allowsCartPreloading": false,
+    "knownDeeplinkIssue": false,
+    "termsUrl": "https://example.com/trailhead/terms"
+  },
+  {
+    "key": "paperplane",
+    "name": "Paperplane Books",
+    "trackingSlaHours": 24,
+    "confirmationWindowDays": 30,
+    "excludedCategories": ["Gift cards", "Subscriptions"],
+    "allowsCouponStacking": true,
+    "allowsCartPreloading": true,
+    "knownDeeplinkIssue": false,
+    "termsUrl": "https://example.com/paperplane/terms"
+  }
+]

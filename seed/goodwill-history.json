@@ -1,0 +1,7 @@
+[
+  { "key": "gw01", "user": "u03", "daysAgo": 18, "amount": 120, "reason": "REFERRER_STRIPPED" },
+  { "key": "gw02", "user": "u03", "daysAgo": 54, "amount": 90, "reason": "NATIVE_APP_HANDOFF" },
+  { "key": "gw03", "user": "u08", "daysAgo": 12, "amount": 75, "reason": "REFERRER_STRIPPED" },
+  { "key": "gw04", "user": "u14", "daysAgo": 105, "amount": 150, "reason": "NATIVE_APP_HANDOFF" },
+  { "key": "gw05", "user": "u19", "daysAgo": 36, "amount": 110, "reason": "REFERRER_STRIPPED" }
+]

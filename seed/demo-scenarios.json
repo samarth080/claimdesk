@@ -1,0 +1,10 @@
+[
+  { "key": "impatient", "name": "Impatient", "expectedCode": "WITHIN_TRACKING_SLA", "summary": "Order placed six hours ago, inside the retailer SLA." },
+  { "key": "ghost_click", "name": "Ghost click", "expectedCode": "NO_CLICK_RECORDED", "summary": "An order exists but no click was recorded." },
+  { "key": "app_handoff", "name": "App handoff", "expectedCode": "NATIVE_APP_HANDOFF", "summary": "A native retailer app opened through a known broken deep link." },
+  { "key": "coupon_detour", "name": "Coupon detour", "expectedCode": "COUPON_ATTRIBUTION_LOSS", "summary": "An external coupon took last-click attribution." },
+  { "key": "returned_it", "name": "Returned it", "expectedCode": "ORDER_CANCELLED_OR_RETURNED", "summary": "The underlying order was returned." },
+  { "key": "gift_card", "name": "Gift card", "expectedCode": "EXCLUDED_CATEGORY", "summary": "The purchased category is excluded by the retailer terms." },
+  { "key": "vague", "name": "Vague", "expectedCode": "INSUFFICIENT_EVIDENCE", "summary": "A missing date and value trigger one targeted question, then resolve inside the tracking SLA.", "answer": "Use the seeded order date." },
+  { "key": "real_failure", "name": "Real failure", "expectedCode": "GENUINE_TRACKING_FAILURE", "summary": "Clean click and order evidence, SLA elapsed, no cashback record." }
+]

@@ -1,0 +1,8 @@
+[
+  { "retailer": "nimbus", "code": "NIMBUS10" },
+  { "retailer": "cedar", "code": "CEDAR15" },
+  { "retailer": "orbit", "code": "ORBIT500" },
+  { "retailer": "pantry", "code": "PANTRY20" },
+  { "retailer": "trailhead", "code": "TRAIL750" },
+  { "retailer": "paperplane", "code": "READMORE" }
+]

@@ -1,0 +1,74 @@
+[
+  { "key": "impatient", "user": "u01", "retailer": "nimbus", "diagnosis": "WITHIN_TRACKING_SLA", "value": 1849, "ageHours": 6, "rawText": "I ordered home supplies from Nimbus Mart about 6 hours ago for ₹1,849 but cashback is not showing." },
+  { "key": "within_02", "user": "u02", "retailer": "cedar", "diagnosis": "WITHIN_TRACKING_SLA", "value": 2390, "ageHours": 11 },
+  { "key": "within_03", "user": "u03", "retailer": "orbit", "diagnosis": "WITHIN_TRACKING_SLA", "value": 48750, "ageHours": 28 },
+  { "key": "within_04", "user": "u04", "retailer": "pantry", "diagnosis": "WITHIN_TRACKING_SLA", "value": 1260, "ageHours": 4 },
+  { "key": "within_05", "user": "u05", "retailer": "trailhead", "diagnosis": "WITHIN_TRACKING_SLA", "value": 18940, "ageHours": 18 },
+  { "key": "within_06", "user": "u06", "retailer": "paperplane", "diagnosis": "WITHIN_TRACKING_SLA", "value": 899, "ageHours": 8 },
+
+  { "key": "pending_01", "user": "u07", "retailer": "cedar", "diagnosis": "PENDING_CONFIRMATION_WINDOW", "value": 3299, "ageHours": 240 },
+  { "key": "pending_02", "user": "u08", "retailer": "orbit", "diagnosis": "PENDING_CONFIRMATION_WINDOW", "value": 26990, "ageHours": 360 },
+  { "key": "pending_03", "user": "u09", "retailer": "pantry", "diagnosis": "PENDING_CONFIRMATION_WINDOW", "value": 1740, "ageHours": 120 },
+  { "key": "pending_04", "user": "u10", "retailer": "trailhead", "diagnosis": "PENDING_CONFIRMATION_WINDOW", "value": 42200, "ageHours": 504 },
+
+  { "key": "returned_it", "user": "u11", "retailer": "cedar", "diagnosis": "ORDER_CANCELLED_OR_RETURNED", "value": 2799, "ageHours": 168, "orderStatus": "returned", "rawText": "I returned my Cedar & Loom order three days ago and now the cashback has disappeared." },
+  { "key": "cancelled_02", "user": "u12", "retailer": "nimbus", "diagnosis": "ORDER_CANCELLED_OR_RETURNED", "value": 1599, "ageHours": 20, "orderStatus": "cancelled" },
+  { "key": "cancelled_03", "user": "u13", "retailer": "orbit", "diagnosis": "ORDER_CANCELLED_OR_RETURNED", "value": 6599, "ageHours": 96, "orderStatus": "returned" },
+  { "key": "cancelled_04", "user": "u14", "retailer": "paperplane", "diagnosis": "ORDER_CANCELLED_OR_RETURNED", "value": 749, "ageHours": 30, "orderStatus": "cancelled" },
+
+  { "key": "gift_card", "user": "u15", "retailer": "nimbus", "diagnosis": "EXCLUDED_CATEGORY", "value": 2000, "ageHours": 10, "category": "Gift cards", "rawText": "I bought a ₹2,000 gift card from Nimbus Mart today but no cashback tracked." },
+  { "key": "excluded_02", "user": "u16", "retailer": "orbit", "diagnosis": "EXCLUDED_CATEGORY", "value": 2499, "ageHours": 120, "category": "Extended warranty" },
+  { "key": "excluded_03", "user": "u17", "retailer": "trailhead", "diagnosis": "EXCLUDED_CATEGORY", "value": 1899, "ageHours": 144, "category": "Travel insurance" },
+  { "key": "excluded_04", "user": "u18", "retailer": "paperplane", "diagnosis": "EXCLUDED_CATEGORY", "value": 1200, "ageHours": 72, "category": "Subscriptions" },
+
+  { "key": "ghost_click", "user": "u19", "retailer": "orbit", "diagnosis": "NO_CLICK_RECORDED", "value": 12490, "ageHours": 80, "rawText": "I bought headphones from Orbit Electronics for ₹12,490. My privacy blocker was on and cashback never appeared." },
+  { "key": "no_click_02", "user": "u20", "retailer": "nimbus", "diagnosis": "NO_CLICK_RECORDED", "value": 2180, "ageHours": 52 },
+  { "key": "no_click_03", "user": "u21", "retailer": "paperplane", "diagnosis": "NO_CLICK_RECORDED", "value": 1380, "ageHours": 96 },
+  { "key": "no_click_04", "user": "u22", "retailer": "trailhead", "diagnosis": "NO_CLICK_RECORDED", "value": 33600, "ageHours": 120 },
+
+  { "key": "referrer_01", "user": "u23", "retailer": "nimbus", "diagnosis": "REFERRER_STRIPPED", "value": 1420, "ageHours": 55 },
+  { "key": "referrer_02", "user": "u24", "retailer": "cedar", "diagnosis": "REFERRER_STRIPPED", "value": 1890, "ageHours": 72 },
+  { "key": "referrer_03", "user": "u25", "retailer": "orbit", "diagnosis": "REFERRER_STRIPPED", "value": 2200, "ageHours": 96 },
+
+  { "key": "app_handoff", "user": "u02", "retailer": "cedar", "diagnosis": "NATIVE_APP_HANDOFF", "value": 1799, "ageHours": 78, "rawText": "I tapped Cedar & Loom in the cashback app, their app opened, and I finished a ₹1,799 order there." },
+  { "key": "native_02", "user": "u04", "retailer": "orbit", "diagnosis": "NATIVE_APP_HANDOFF", "value": 1549, "ageHours": 100 },
+  { "key": "native_03", "user": "u06", "retailer": "cedar", "diagnosis": "NATIVE_APP_HANDOFF", "value": 2490, "ageHours": 90 },
+
+  { "key": "coupon_detour", "user": "u08", "retailer": "nimbus", "diagnosis": "COUPON_ATTRIBUTION_LOSS", "value": 3199, "ageHours": 76, "couponCode": "SAVEHUB25", "rawText": "I clicked through for Nimbus Mart, then used SAVEHUB25 from a coupon site before paying ₹3,199." },
+  { "key": "coupon_02", "user": "u10", "retailer": "cedar", "diagnosis": "COUPON_ATTRIBUTION_LOSS", "value": 2140, "ageHours": 82, "couponCode": "STYLEDEAL" },
+  { "key": "coupon_03", "user": "u12", "retailer": "orbit", "diagnosis": "COUPON_ATTRIBUTION_LOSS", "value": 8299, "ageHours": 110, "couponCode": "TECHBARGAIN" },
+  { "key": "coupon_04", "user": "u14", "retailer": "trailhead", "diagnosis": "COUPON_ATTRIBUTION_LOSS", "value": 24750, "ageHours": 132, "couponCode": "FLYAWAY" },
+
+  { "key": "session_01", "user": "u16", "retailer": "nimbus", "diagnosis": "SESSION_EXPIRED", "value": 2680, "ageHours": 84, "clickLeadHours": 31 },
+  { "key": "session_02", "user": "u18", "retailer": "cedar", "diagnosis": "SESSION_EXPIRED", "value": 3780, "ageHours": 108, "clickLeadHours": 38 },
+  { "key": "session_03", "user": "u20", "retailer": "trailhead", "diagnosis": "SESSION_EXPIRED", "value": 28600, "ageHours": 168, "clickLeadHours": 29 },
+
+  { "key": "cart_01", "user": "u22", "retailer": "nimbus", "diagnosis": "CART_PRELOADED", "value": 1960, "ageHours": 70 },
+  { "key": "cart_02", "user": "u24", "retailer": "orbit", "diagnosis": "CART_PRELOADED", "value": 5199, "ageHours": 90 },
+
+  { "key": "account_01", "user": "u01", "retailer": "cedar", "diagnosis": "ACCOUNT_MISMATCH", "value": 1890, "ageHours": 96, "orderEmail": "aarav.work@example.test" },
+  { "key": "account_02", "user": "u05", "retailer": "paperplane", "diagnosis": "ACCOUNT_MISMATCH", "value": 1099, "ageHours": 72, "orderEmail": "ishaan.office@example.test" },
+  { "key": "account_03", "user": "u09", "retailer": "trailhead", "diagnosis": "ACCOUNT_MISMATCH", "value": 31800, "ageHours": 144, "orderEmail": "neel.travel@example.test" },
+
+  { "key": "vague", "user": "u13", "retailer": "nimbus", "diagnosis": "INSUFFICIENT_EVIDENCE", "value": 2299, "ageHours": 10, "omitClaimDate": true, "omitClaimValue": true, "rawText": "cashback nahi aaya, Nimbus Mart se liya tha" },
+  { "key": "insufficient_02", "user": "u15", "retailer": "orbit", "diagnosis": "INSUFFICIENT_EVIDENCE", "value": 6499, "ageHours": 180, "omitClaimDate": true, "omitClaimValue": true },
+  { "key": "insufficient_03", "user": "u17", "retailer": "paperplane", "diagnosis": "INSUFFICIENT_EVIDENCE", "value": 820, "ageHours": 140, "omitClaimDate": true, "omitClaimValue": true },
+  { "key": "insufficient_04", "user": "u21", "retailer": "pantry", "diagnosis": "INSUFFICIENT_EVIDENCE", "value": 1640, "ageHours": 100, "omitClaimDate": true, "omitClaimValue": true },
+  { "key": "insufficient_05", "user": "u25", "retailer": "trailhead", "diagnosis": "INSUFFICIENT_EVIDENCE", "value": 22500, "ageHours": 220, "omitClaimDate": true, "omitClaimValue": true },
+
+  { "key": "real_failure", "user": "u03", "retailer": "orbit", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 18990, "ageHours": 240, "rawText": "I clicked through normally and completed an Orbit Electronics order for ₹18,990 ten days ago. Nothing has tracked." },
+  { "key": "genuine_02", "user": "u07", "retailer": "nimbus", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 2860, "ageHours": 120 },
+  { "key": "genuine_03", "user": "u11", "retailer": "cedar", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 4460, "ageHours": 170 },
+  { "key": "genuine_04", "user": "u19", "retailer": "pantry", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 1860, "ageHours": 72 },
+  { "key": "genuine_05", "user": "u23", "retailer": "trailhead", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 38400, "ageHours": 216 },
+  { "key": "genuine_06", "user": "u02", "retailer": "paperplane", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 1180, "ageHours": 96 },
+  { "key": "genuine_07", "user": "u06", "retailer": "nimbus", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 3920, "ageHours": 150 },
+  { "key": "genuine_08", "user": "u10", "retailer": "cedar", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 2890, "ageHours": 190 },
+  { "key": "genuine_09", "user": "u14", "retailer": "orbit", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 22600, "ageHours": 264 },
+  { "key": "genuine_10", "user": "u18", "retailer": "pantry", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 1420, "ageHours": 80 },
+  { "key": "genuine_11", "user": "u22", "retailer": "trailhead", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 47200, "ageHours": 336 },
+  { "key": "genuine_12", "user": "u04", "retailer": "paperplane", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 960, "ageHours": 130 },
+  { "key": "genuine_13", "user": "u08", "retailer": "nimbus", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 2480, "ageHours": 144 },
+  { "key": "genuine_14", "user": "u12", "retailer": "cedar", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 5690, "ageHours": 220 },
+  { "key": "genuine_15", "user": "u16", "retailer": "orbit", "diagnosis": "GENUINE_TRACKING_FAILURE", "value": 14990, "ageHours": 300 }
+]
