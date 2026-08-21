@@ -1,7 +1,8 @@
 import type { Json } from "@/lib/types/database";
 import type { ClaimContext, DiagnosisCode } from "@/lib/types/domain";
-import { demoOrderDate, getDemoScenario } from "@/lib/demo/scenarios";
+import { getDemoScenario, resolveDemoClaimDate } from "@/lib/demo/scenarios";
 import { parseClaimAtIntake } from "@/lib/ai/parser";
+import { buildResolutionMessage } from "@/lib/claims/message";
 import { buildReasoningView } from "@/lib/reasoning/view";
 import { writeResolutionCopy } from "@/lib/ai/resolution";
 import {
@@ -49,18 +50,6 @@ function titleFor(
   return "A specialist will review this";
 }
 
-function buildMessage(
-  result: ReturnType<typeof diagnoseClaim>,
-): string {
-  if (result.goodwill?.approved) {
-    return `${result.explanation} All 3 goodwill-policy checks passed, so a goodwill credit has been auto-approved.`;
-  }
-  if (result.disposition === "escalate_human" && result.goodwill) {
-    return `${result.explanation} The automatic goodwill policy did not pass every check, so a specialist will review the recommendation.`;
-  }
-  return result.explanation;
-}
-
 export async function submitClaimForDiagnosis(
   payload: ClaimIntakePayload,
 ): Promise<ClaimIntakeResponse> {
@@ -103,13 +92,31 @@ export async function submitClaimForDiagnosis(
     const demoRetailer = demoScenario
       ? retailers.find((retailer) => retailer.name === demoScenario.retailerName) ?? null
       : null;
+    const demoAnchorRetailer = demoScenario
+      ? retailers.find(
+          (retailer) =>
+            retailer.name ===
+            (demoScenario.actualRetailerName ?? demoScenario.retailerName),
+        ) ?? null
+      : null;
+    const demoOrders = demoScenario
+      ? ((await supabase.from("orders").select("*").eq("user_id", user.id)).data ??
+          []).map(mapOrder)
+      : [];
     const parsed = demoScenario
       ? {
           status: "parsed" as const,
           source: "demo" as const,
           retailer: demoRetailer,
           approximateOrderDate:
-            demoScenario.key === "vague" ? null : demoOrderDate(demoScenario, now),
+            demoScenario.key === "vague"
+              ? null
+              : resolveDemoClaimDate(
+                  demoScenario,
+                  demoOrders,
+                  demoAnchorRetailer?.id ?? null,
+                  now,
+                ),
           approximateOrderValue: demoScenario.approximateValue,
           volunteeredSignals: null,
         }
@@ -214,7 +221,7 @@ export async function submitClaimForDiagnosis(
         : diagnosis.disposition === "escalate_human"
           ? "Human review target: within 2 working days."
           : null;
-    const fallbackMessage = buildMessage(diagnosis);
+    const fallbackMessage = buildResolutionMessage(diagnosis);
     const resolution = await writeResolutionCopy({
       diagnosis,
       fallback: fallbackMessage,

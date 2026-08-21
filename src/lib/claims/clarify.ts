@@ -1,3 +1,4 @@
+import { buildResolutionMessage } from "@/lib/claims/message";
 import { buildReasoningView } from "@/lib/reasoning/view";
 import { writeResolutionCopy } from "@/lib/ai/resolution";
 import {
@@ -42,16 +43,6 @@ function titleFor(outcome: IntakeOutcome, code: DiagnosisCode): string {
     return "This needs a real tracking claim";
   }
   return "Your answer is with a specialist";
-}
-
-function buildMessage(result: ReturnType<typeof diagnoseClaim>): string {
-  if (result.goodwill?.approved) {
-    return `${result.explanation} All 3 goodwill-policy checks passed, so a goodwill credit has been auto-approved.`;
-  }
-  if (result.disposition === "escalate_human" && result.goodwill) {
-    return `${result.explanation} The automatic goodwill policy did not pass every check, so a specialist will review the recommendation.`;
-  }
-  return result.explanation;
 }
 
 export async function answerClaimClarification(
@@ -186,7 +177,7 @@ export async function answerClaimClarification(
         : diagnosis.disposition === "escalate_human"
           ? "Human review target: within 2 working days."
           : null;
-    const fallbackMessage = buildMessage(diagnosis);
+    const fallbackMessage = buildResolutionMessage(diagnosis);
     const resolution = await writeResolutionCopy({
       diagnosis,
       fallback: fallbackMessage,

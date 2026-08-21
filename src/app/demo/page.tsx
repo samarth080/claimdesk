@@ -5,8 +5,8 @@ import { AppHeader } from "@/components/app-header";
 import { DEMO_SCENARIOS } from "@/lib/demo/scenarios";
 
 export const metadata: Metadata = {
-  title: "Scenario launcher · ClaimDesk",
-  description: "Eight seeded paths through the cashback claim triage engine",
+  title: "Case files · ClaimDesk",
+  description: "Ten worked case files through the cashback claim triage engine",
 };
 
 const OUTCOME_STYLES = {
@@ -16,9 +16,9 @@ const OUTCOME_STYLES = {
 } as const;
 
 const REVIEW_PATH = [
-  ["03", "App handoff", "Policy-aware goodwill"],
-  ["07", "Vague", "One-question loop"],
-  ["08", "Real failure", "Evidence-led escalation"],
+  ["06", "Gift card", "Terms excerpt cited by the rule that fired"],
+  ["08", "Real failure", "Clean evidence, escalation packet drafted"],
+  ["10", "Wrong retailer", "Messy input the matcher rejects, and why"],
 ] as const;
 
 export default function DemoPage() {
@@ -29,12 +29,12 @@ export default function DemoPage() {
       <div className="mx-auto max-w-[1280px] px-5 py-8 sm:px-8 lg:py-10">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
           <div>
-            <p className="brand-eyebrow font-mono text-[10px] uppercase tracking-[0.18em]">Eight seeded journeys</p>
+            <p className="brand-eyebrow font-mono text-[10px] uppercase tracking-[0.18em]">Ten worked case files</p>
             <h1 className="mt-2 max-w-3xl text-3xl font-semibold tracking-[-0.035em] text-zinc-950 sm:text-4xl">
-              See the engine make the hard calls.
+              Open a case, not an answer.
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
-              Each launch submits a real claim against synthetic click, order and retailer evidence. The shown diagnosis is computed live; it is not a pre-rendered result.
+              Each case file runs the real engine over the seeded evidence and shows the whole path: the message as written, what was parsed from it, which orders the matcher considered, all 13 rules in order, and the reply that went back.
             </p>
           </div>
           <aside className="brand-panel rounded-xl border p-4">
@@ -50,26 +50,41 @@ export default function DemoPage() {
           </aside>
         </div>
 
-        <section aria-label="Demo scenarios" className="mt-8 grid gap-px overflow-hidden rounded-xl border border-zinc-200 bg-zinc-200 shadow-[0_8px_24px_rgba(24,24,27,0.045)] sm:grid-cols-2 xl:grid-cols-4">
+        <section aria-label="Demo case files" className="mt-8 grid gap-px overflow-hidden rounded-xl border border-zinc-200 bg-zinc-200 shadow-[0_8px_24px_rgba(24,24,27,0.045)] sm:grid-cols-2 xl:grid-cols-3">
           {DEMO_SCENARIOS.map((scenario) => (
-            <article key={scenario.key} className="flex min-h-72 flex-col bg-white p-5 transition hover:bg-[#fffaf6]">
+            <article key={scenario.key} className="flex min-h-60 flex-col bg-white p-5 transition hover:bg-[#fffaf6]">
               <div className="flex items-start justify-between gap-3">
                 <span className="font-mono text-[11px] text-zinc-400">{scenario.number}</span>
-                <span className={`border px-2 py-1 text-[10px] font-medium ${OUTCOME_STYLES[scenario.outcome]}`}>
-                  {scenario.outcome}
-                </span>
+                <div className="flex flex-wrap items-center justify-end gap-1.5">
+                  {scenario.messy ? (
+                    <span className="border border-zinc-300 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-zinc-600">
+                      Messy input
+                    </span>
+                  ) : null}
+                  <span className={`border px-2 py-1 text-[10px] font-medium ${OUTCOME_STYLES[scenario.outcome]}`}>
+                    {scenario.outcome}
+                  </span>
+                </div>
               </div>
-              <h2 className="mt-5 text-lg font-semibold tracking-tight text-zinc-950">{scenario.name}</h2>
+              <h2 className="mt-4 text-lg font-semibold tracking-tight text-zinc-950">{scenario.name}</h2>
               <p className="mt-2 flex-1 text-xs leading-5 text-zinc-600">{scenario.summary}</p>
-              <div className="mt-5 border-t border-zinc-100 pt-4">
+              <div className="mt-4 border-t border-zinc-100 pt-3.5">
                 <p className="min-h-8 break-words font-mono text-[9px] leading-4 text-zinc-400">{scenario.expectedCode}</p>
-                <Link
-                  href={`/?demo=${scenario.key}`}
-                  className="brand-button mt-3 flex items-center justify-between rounded-lg px-3 py-2.5 text-xs font-semibold transition"
-                >
-                  Run scenario
-                  <span aria-hidden="true" className="font-mono">→</span>
-                </Link>
+                <div className="mt-2 flex items-center gap-2">
+                  <Link
+                    href={`/demo/${scenario.key}`}
+                    className="brand-button flex flex-1 items-center justify-between rounded-lg px-3 py-2.5 text-xs font-semibold transition"
+                  >
+                    Open case file
+                    <span aria-hidden="true" className="font-mono">→</span>
+                  </Link>
+                  <Link
+                    href={`/?demo=${scenario.key}`}
+                    className="shrink-0 rounded-lg border border-zinc-300 px-3 py-2.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-500 hover:text-zinc-950"
+                  >
+                    Run live
+                  </Link>
+                </div>
               </div>
             </article>
           ))}

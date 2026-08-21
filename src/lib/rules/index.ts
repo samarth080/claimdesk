@@ -4,6 +4,7 @@ export * from "./engine";
 export * from "./escalation";
 export * from "./evidence";
 export * from "./goodwill";
+export * from "./matching";
 export * from "./questions";
 export * from "./reading";
 export * from "./rules";

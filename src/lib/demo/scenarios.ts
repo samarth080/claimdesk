@@ -1,4 +1,6 @@
-import type { DiagnosisCode } from "@/lib/types/domain";
+import type { DiagnosisCode, Order } from "@/lib/types/domain";
+
+import { addHours } from "@/lib/rules/dates";
 
 export type DemoScenarioKey =
   | "impatient"
@@ -8,7 +10,9 @@ export type DemoScenarioKey =
   | "returned_it"
   | "gift_card"
   | "vague"
-  | "real_failure";
+  | "real_failure"
+  | "wrong_date"
+  | "wrong_retailer";
 
 export type DemoScenario = {
   key: DemoScenarioKey;
@@ -23,6 +27,11 @@ export type DemoScenario = {
   approximateValue: number | null;
   ageHours: number;
   suggestedAnswer?: string;
+  /** Retailer the order was actually placed at, when the claim names another. */
+  actualRetailerName?: string;
+  /** Hours the stated date is deliberately wrong by. */
+  claimedDateOffsetHours?: number;
+  messy?: "date" | "retailer";
 };
 
 export const DEMO_SCENARIOS: readonly DemoScenario[] = [
@@ -90,6 +99,25 @@ export const DEMO_SCENARIOS: readonly DemoScenario[] = [
     userEmail: "arjun.nair@example.test", retailerName: "Orbit Electronics",
     approximateValue: 18_990, ageHours: 240,
   },
+  {
+    key: "wrong_date", number: "09", name: "Wrong date",
+    expectedCode: "GENUINE_TRACKING_FAILURE", outcome: "Escalate",
+    summary: "The stated date is 30 hours out. Tolerant matching still finds the one order it can be.",
+    rawText: "Orbit Electronics order about a week back, ₹18,990 or so, cashback still missing.",
+    userEmail: "arjun.nair@example.test", retailerName: "Orbit Electronics",
+    approximateValue: 18_990, ageHours: 240,
+    claimedDateOffsetHours: 30, messy: "date",
+  },
+  {
+    key: "wrong_retailer", number: "10", name: "Wrong retailer",
+    expectedCode: "INSUFFICIENT_EVIDENCE", outcome: "Ask one question",
+    summary: "The shopper names a retailer they never ordered from, so the one near-miss order is rejected.",
+    rawText: "I bought headphones from Nimbus Mart for ₹12,490 and no cashback has tracked.",
+    userEmail: "vihaan.bose@example.test", retailerName: "Nimbus Mart",
+    actualRetailerName: "Orbit Electronics",
+    approximateValue: 12_490, ageHours: 80,
+    suggestedAnswer: "order_date", messy: "retailer",
+  },
 ] as const;
 
 const scenariosByKey = new Map(DEMO_SCENARIOS.map((scenario) => [scenario.key, scenario]));
@@ -106,8 +134,47 @@ export function demoOrderDate(scenario: DemoScenario, now = new Date()): string 
   return new Date(now.getTime() - scenario.ageHours * 60 * 60 * 1_000).toISOString();
 }
 
-export function demoSuggestedAnswer(scenario: DemoScenario, now = new Date()): string | null {
+export function demoSuggestedAnswer(
+  scenario: DemoScenario,
+  now = new Date(),
+  claimDate?: string,
+): string | null {
   return scenario.suggestedAnswer === "order_date"
-    ? demoOrderDate(scenario, now).slice(0, 10)
+    ? (claimDate ?? demoOrderDate(scenario, now)).slice(0, 10)
     : null;
+}
+
+function valueIsClose(orderValue: number, claimedValue: number): boolean {
+  return Math.abs(orderValue - claimedValue) <= Math.max(50, claimedValue * 0.05);
+}
+
+/**
+ * The date a demo claim states. Seeded orders are written relative to the run
+ * time of the seed, so an age-based date drifts past the 36-hour matching
+ * tolerance about a day and a half after seeding and every scenario stops
+ * matching. Anchoring to the order the scenario is about keeps the demo stable,
+ * and lets a scenario be deliberately wrong by a stated number of hours.
+ */
+export function resolveDemoClaimDate(
+  scenario: DemoScenario,
+  orders: Order[],
+  retailerId: string | null,
+  now = new Date(),
+): string {
+  const candidates = orders.filter(
+    (order) =>
+      (retailerId === null || order.retailerId === retailerId) &&
+      (scenario.approximateValue === null ||
+        valueIsClose(order.orderValue, scenario.approximateValue)),
+  );
+  if (candidates.length === 0) return demoOrderDate(scenario, now);
+
+  const targetAge = scenario.ageHours * 60 * 60 * 1_000;
+  const closest = candidates.reduce((best, order) => {
+    const ageOf = (candidate: Order) =>
+      Math.abs(now.getTime() - new Date(candidate.orderedAt).getTime() - targetAge);
+    return ageOf(order) < ageOf(best) ? order : best;
+  });
+
+  return addHours(closest.orderedAt, scenario.claimedDateOffsetHours ?? 0);
 }
