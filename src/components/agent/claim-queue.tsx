@@ -1,49 +1,9 @@
 import type { AgentClaimView } from "@/lib/agent/types";
 import { formatRupees } from "@/lib/rules/dates";
 
+import { DecisionPath } from "@/components/reasoning/decision-path";
+
 import { CasePacket } from "./case-packet";
-import { EvidenceTimeline } from "./evidence-timeline";
-import { RuleTrace } from "./rule-trace";
-
-function GoodwillReasoning({ claim }: { claim: AgentClaimView }) {
-  if (!claim.goodwill) return null;
-
-  return (
-    <section className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-      <div className="flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">
-            Goodwill policy reasoning
-          </p>
-          <p className="mt-1 text-sm font-medium text-zinc-900">
-            {claim.goodwill.recommendation}
-          </p>
-        </div>
-        <span className="font-mono text-[10px] text-zinc-500">
-          {claim.goodwill.checks.filter((check) => check.passed).length}/
-          {claim.goodwill.checks.length} passed
-        </span>
-      </div>
-      <ul className="mt-3 grid gap-2 sm:grid-cols-3">
-        {claim.goodwill.checks.map((check) => (
-          <li key={check.id} className="rounded-lg border border-zinc-200 bg-white p-3">
-            <div className="flex items-center gap-2">
-              <span
-                className={`size-2 ${check.passed ? "bg-emerald-500" : "bg-amber-500"}`}
-              />
-              <p className="text-[11px] font-medium text-zinc-800">
-                {check.label}
-              </p>
-            </div>
-            <p className="mt-2 text-[10px] leading-4 text-zinc-500">
-              {check.evidence}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
 
 export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
   if (claims.length === 0) {
@@ -122,26 +82,26 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
           </summary>
 
           <div className="border-t border-zinc-200 bg-zinc-50/60 px-5 py-6">
-            <div className="grid gap-8 xl:grid-cols-2">
+            <div className="grid gap-5 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
               <div>
                 <div className="border-l-2 border-blue-500 pl-4">
                   <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-700">
                     Pre-diagnosed
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-zinc-700">
+                  <p className="mt-2 text-[13px] leading-6 text-zinc-700">
                     {claim.diagnosisSummary}
                   </p>
                 </div>
-                <blockquote className="mt-5 border border-zinc-200 bg-white p-4 text-sm leading-6 text-zinc-600">
-                  “{claim.rawText}”
+                <blockquote className="mt-5 rounded-lg border border-zinc-200 bg-white p-4 text-[13px] leading-6 text-zinc-600">
+                  &ldquo;{claim.rawText}&rdquo;
                 </blockquote>
                 {claim.clarification ? (
-                  <dl className="mt-4 grid gap-3 border border-amber-200 bg-amber-50/60 p-4 sm:grid-cols-2">
+                  <dl className="mt-4 grid gap-3 rounded-lg border border-amber-200 bg-amber-50/60 p-4">
                     <div>
                       <dt className="font-mono text-[9px] uppercase tracking-[0.12em] text-amber-700">
                         Clarifying question
                       </dt>
-                      <dd className="mt-1 text-xs leading-5 text-zinc-700">
+                      <dd className="mt-1 text-[12px] leading-5 text-zinc-700">
                         {claim.clarification.question}
                       </dd>
                     </div>
@@ -149,27 +109,24 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
                       <dt className="font-mono text-[9px] uppercase tracking-[0.12em] text-amber-700">
                         User answer
                       </dt>
-                      <dd className="mt-1 font-mono text-xs leading-5 text-zinc-700">
+                      <dd className="mt-1 font-mono text-[12px] leading-5 text-zinc-700">
                         {claim.clarification.answer}
                       </dd>
                     </div>
                   </dl>
                 ) : null}
-                <GoodwillReasoning claim={claim} />
-                <div className="mt-8">
-                  <EvidenceTimeline
-                    events={claim.timeline}
-                    labelId={`evidence-timeline-${claim.id}`}
-                  />
-                </div>
               </div>
-              <RuleTrace
-                entries={claim.ruleTrace}
-                labelId={`rule-trace-${claim.id}`}
+
+              <DecisionPath
+                view={claim.reasoning}
+                idPrefix={`case-${claim.id}`}
+                defaultOpen
+                packetSlot={
+                  <div className="mt-4">
+                    <CasePacket packet={claim.packet} />
+                  </div>
+                }
               />
-            </div>
-            <div className="mt-8">
-              <CasePacket packet={claim.packet} />
             </div>
           </div>
         </details>

@@ -1,37 +1,21 @@
+import type { ReasoningView } from "@/lib/reasoning/view";
 import type { PolicyCheck } from "@/lib/rules/goodwill";
 import type {
   DiagnosisCode,
   OrderStatus,
 } from "@/lib/types/domain";
-import type { RuleTraceStatus } from "@/lib/rules/engine";
 
-export type AgentTimelineField = {
+export type AgentPacketField = {
   label: string;
   value: string;
-};
-
-export type AgentTimelineEvent = {
-  id: string;
-  kind: "click" | "order" | "cashback";
-  title: string;
-  timestamp: string | null;
-  state: "verified" | "missing" | "warning";
-  fields: AgentTimelineField[];
-};
-
-export type AgentRuleTraceEntry = {
-  code: DiagnosisCode;
-  status: RuleTraceStatus;
-  evidenceTest: string;
-  detail: string;
 };
 
 export type AgentCasePacket = {
   heading: string;
   route: "Affiliate network" | "Human specialist";
   caseId: string;
-  identityFields: AgentTimelineField[];
-  transactionFields: AgentTimelineField[];
+  identityFields: AgentPacketField[];
+  transactionFields: AgentPacketField[];
   evidenceSummary: string[];
   requestedAction: string;
   copyText: string;
@@ -52,8 +36,7 @@ export type AgentClaimView = {
   rawText: string;
   diagnosisSummary: string;
   orderStatus: OrderStatus | null;
-  timeline: AgentTimelineEvent[];
-  ruleTrace: AgentRuleTraceEntry[];
+  reasoning: ReasoningView;
   packet: AgentCasePacket;
   clarification: {
     question: string;

@@ -11,6 +11,7 @@ import { formatIndiaDateTime, formatRupees } from "@/lib/rules/dates";
 import { diagnoseClaim, type DiagnosisResult } from "@/lib/rules/engine";
 import { matchEvidence, matchOrder } from "@/lib/rules/evidence";
 import { readEvidence } from "@/lib/rules/reading";
+import { buildReasoningView } from "@/lib/reasoning/view";
 import { CLARIFYING_QUESTIONS } from "@/lib/rules/questions";
 import { RULES } from "@/lib/rules/rules";
 import { createServerClient } from "@/lib/supabase/server";
@@ -28,29 +29,8 @@ import type {
   AgentCasePacket,
   AgentClaimView,
   AgentQueueData,
-  AgentTimelineEvent,
 } from "./types";
 
-const RULE_EVIDENCE_TESTS: Record<DiagnosisCode, string> = {
-  ORDER_CANCELLED_OR_RETURNED: "Order status is cancelled or returned.",
-  EXCLUDED_CATEGORY: "Order category appears in the retailer exclusion list.",
-  WITHIN_TRACKING_SLA: "Matched click and order are still inside tracking SLA.",
-  PENDING_CONFIRMATION_WINDOW:
-    "Pending cashback is inside the retailer confirmation window.",
-  NO_CLICK_RECORDED: "No eligible pre-order click exists in the tracking log.",
-  REFERRER_STRIPPED: "Matched click arrived without intact referral data.",
-  NATIVE_APP_HANDOFF:
-    "Native app handoff occurred for a retailer with a known deep-link issue.",
-  COUPON_ATTRIBUTION_LOSS:
-    "External coupon was used where coupon stacking is not allowed.",
-  SESSION_EXPIRED: "Order was completed more than 24 hours after the click.",
-  CART_PRELOADED:
-    "Cart contained items before click-through and retailer disallows it.",
-  ACCOUNT_MISMATCH: "Ordering email differs from cashback account email.",
-  GENUINE_TRACKING_FAILURE:
-    "Clean click and order exist, SLA elapsed, and no cashback record exists.",
-  INSUFFICIENT_EVIDENCE: "No order can be matched to the submitted claim.",
-};
 
 function groupBy<T>(items: T[], keyFor: (item: T) => string): Map<string, T[]> {
   const groups = new Map<string, T[]>();
@@ -84,15 +64,6 @@ function jsonStringArray(
   return Array.isArray(value)
     ? value.filter((item): item is string => typeof item === "string")
     : [];
-}
-
-function deviceLabel(device: Click["device"]): string {
-  return {
-    android_app: "Android app",
-    ios_app: "iOS app",
-    mweb: "Mobile web",
-    desktop: "Desktop web",
-  }[device];
 }
 
 function diagnoseForAgent(
@@ -137,120 +108,6 @@ function diagnoseForAgent(
       },
     };
   }
-}
-
-function buildTimeline(
-  click: Click | null,
-  order: Order | null,
-  cashback: CashbackRecord | null,
-): AgentTimelineEvent[] {
-  const clickEvent: AgentTimelineEvent = click
-    ? {
-        id: `click-${click.id}`,
-        kind: "click",
-        title: "Tracked click",
-        timestamp: formatIndiaDateTime(click.clickedAt),
-        state:
-          click.referrerIntact && !click.handoffToNativeApp
-            ? "verified"
-            : "warning",
-        fields: [
-          { label: "Click ID", value: click.clickId },
-          { label: "Device", value: deviceLabel(click.device) },
-          {
-            label: "Referrer",
-            value: click.referrerIntact ? "Intact" : "Stripped",
-          },
-          {
-            label: "Native handoff",
-            value: click.handoffToNativeApp ? "Yes" : "No",
-          },
-          {
-            label: "Cart preloaded",
-            value: click.cartPreloaded ? "Yes" : "No",
-          },
-        ],
-      }
-    : {
-        id: "click-missing",
-        kind: "click",
-        title: "No matched click",
-        timestamp: null,
-        state: "missing",
-        fields: [
-          {
-            label: "Evidence",
-            value: "No eligible click row exists before the matched order.",
-          },
-        ],
-      };
-
-  const orderEvent: AgentTimelineEvent = order
-    ? {
-        id: `order-${order.id}`,
-        kind: "order",
-        title: "Matched order",
-        timestamp: formatIndiaDateTime(order.orderedAt),
-        state:
-          order.status === "cancelled" || order.status === "returned"
-            ? "warning"
-            : "verified",
-        fields: [
-          { label: "Order ID", value: order.id },
-          { label: "Value", value: formatRupees(order.orderValue) },
-          { label: "Category", value: order.category },
-          { label: "Status", value: order.status },
-          { label: "Order email", value: order.emailUsed },
-          {
-            label: "Coupon",
-            value: order.couponCodeUsed ?? "None recorded",
-          },
-        ],
-      }
-    : {
-        id: "order-missing",
-        kind: "order",
-        title: "No matched order",
-        timestamp: null,
-        state: "missing",
-        fields: [
-          {
-            label: "Evidence",
-            value: "Retailer, date and value did not produce an order match.",
-          },
-        ],
-      };
-
-  const cashbackEvent: AgentTimelineEvent = cashback
-    ? {
-        id: `cashback-${cashback.id}`,
-        kind: "cashback",
-        title: "Cashback record",
-        timestamp: cashback.reportedAt
-          ? formatIndiaDateTime(cashback.reportedAt)
-          : null,
-        state: cashback.status === "cancelled" ? "warning" : "verified",
-        fields: [
-          { label: "Record ID", value: cashback.id },
-          { label: "Status", value: cashback.status },
-          { label: "Amount", value: formatRupees(cashback.amount) },
-        ],
-      }
-    : {
-        id: "cashback-missing",
-        kind: "cashback",
-        title: "No cashback record",
-        timestamp: null,
-        state: "missing",
-        fields: [
-          {
-            label: "Evidence",
-            value: "No record is linked to the matched click or order.",
-          },
-        ],
-      };
-
-  return [clickEvent, orderEvent, cashbackEvent];
 }
 
 type PacketInput = {
@@ -540,15 +397,7 @@ export async function loadAgentQueue(): Promise<AgentQueueData> {
       rawText: claim.rawText,
       diagnosisSummary: diagnosis.explanation,
       orderStatus: evidence.order?.status ?? null,
-      timeline: buildTimeline(
-        evidence.click,
-        evidence.order,
-        evidence.cashbackRecord,
-      ),
-      ruleTrace: diagnosis.trace.map((entry) => ({
-        ...entry,
-        evidenceTest: RULE_EVIDENCE_TESTS[entry.code],
-      })),
+      reasoning: buildReasoningView(diagnosis),
       packet,
       clarification,
       goodwill:

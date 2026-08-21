@@ -66,6 +66,11 @@ export function routeAfterClarification(
       ...diagnosis,
       disposition: "escalate_human",
       explanation: `Thanks for adding the order date ${answer.trim()}. We still could not match a click or order within the 36-hour evidence window, so a specialist will check the reference details manually instead of asking you another question.`,
+      action: {
+        kind: "escalated_human",
+        detail:
+          "One clarifying question did not close the evidence gap, so the claim went to a specialist to match the order reference by hand.",
+      },
     };
   }
 
@@ -86,6 +91,12 @@ export function routeAfterClarification(
     ...diagnosis,
     disposition: "escalate_human",
     explanation,
+    action: {
+      kind: "escalated_human",
+      detail: confirmationMatchesEvidence
+        ? "A specialist will verify ownership of the order before it is attached to this cashback account."
+        : "A specialist will verify the order details, because the confirmed email matches neither the order nor the account.",
+    },
   };
 }
 

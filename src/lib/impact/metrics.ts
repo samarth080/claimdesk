@@ -5,26 +5,14 @@ import {
   type DiagnosisCode,
 } from "@/lib/types/domain";
 
+export { DIAGNOSIS_LABELS } from "@/lib/reasoning/labels";
+import { DIAGNOSIS_LABELS } from "@/lib/reasoning/labels";
+
 export const DEFAULT_IMPACT_ASSUMPTIONS = {
   costPerHumanClaim: 45,
   handleTimeMinutes: 11,
 } as const;
 
-export const DIAGNOSIS_LABELS: Record<DiagnosisCode, string> = {
-  WITHIN_TRACKING_SLA: "Inside tracking SLA",
-  PENDING_CONFIRMATION_WINDOW: "Pending confirmation",
-  ORDER_CANCELLED_OR_RETURNED: "Cancelled or returned",
-  EXCLUDED_CATEGORY: "Excluded category",
-  NO_CLICK_RECORDED: "No click recorded",
-  REFERRER_STRIPPED: "Referrer stripped",
-  NATIVE_APP_HANDOFF: "Native app handoff",
-  COUPON_ATTRIBUTION_LOSS: "Coupon attribution loss",
-  SESSION_EXPIRED: "Session expired",
-  CART_PRELOADED: "Cart preloaded",
-  ACCOUNT_MISMATCH: "Account mismatch",
-  GENUINE_TRACKING_FAILURE: "Genuine tracking failure",
-  INSUFFICIENT_EVIDENCE: "Insufficient evidence",
-};
 
 export type DiagnosisImpactRow = {
   code: DiagnosisCode;

@@ -9,6 +9,7 @@ import {
 } from "@/app/actions";
 import { AppHeader } from "@/components/app-header";
 import { ClarifyingQuestionForm } from "@/components/clarifying-question-form";
+import { DecisionPath } from "@/components/reasoning/decision-path";
 import { ManualClaimForm } from "@/components/manual-claim-form";
 import type {
   ClaimIntakePayload,
@@ -70,21 +71,6 @@ const OUTCOME_STYLES: Record<
     label: "Escalated correctly",
   },
 };
-
-function CheckMark({ passed }: { passed: boolean }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`flex size-5 shrink-0 items-center justify-center border text-[11px] font-semibold ${
-        passed
-          ? "border-emerald-300 bg-emerald-50 text-emerald-700"
-          : "border-amber-300 bg-amber-50 text-amber-800"
-      }`}
-    >
-      {passed ? "✓" : "!"}
-    </span>
-  );
-}
 
 function DiagnosisProgress() {
   return (
@@ -183,42 +169,9 @@ function DiagnosisResult({
         </div>
       ) : null}
 
-      {result.goodwill ? (
-        <div className="border-b border-zinc-200 px-5 py-5 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-2">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-                Goodwill policy
-              </p>
-              <p className="mt-1 text-sm font-medium text-zinc-900">
-                {result.goodwill.approved
-                  ? "Auto-approved from written criteria"
-                  : "Sent for a policy exception review"}
-              </p>
-            </div>
-            <span className="text-xs text-zinc-500">
-              {result.goodwill.checks.filter((check) => check.passed).length}/
-              {result.goodwill.checks.length} checks passed
-            </span>
-          </div>
-          <ul className="mt-4 grid gap-2">
-            {result.goodwill.checks.map((check) => (
-              <li
-                key={check.id}
-                className="flex items-start gap-3 border border-zinc-200 p-3"
-              >
-                <CheckMark passed={check.passed} />
-                <div>
-                  <p className="text-xs font-medium text-zinc-800">{check.label}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-zinc-500">
-                    {check.evidence}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      <div className="border-b border-zinc-200 px-5 py-5 sm:px-6">
+        <DecisionPath view={result.reasoning} idPrefix={result.claimId} />
+      </div>
 
       <div className="flex flex-col gap-4 bg-zinc-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div>
@@ -366,7 +319,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
             </p>
           </div>
 
-          <div className="mt-8 max-w-2xl">
+          <div className={`mt-8 ${status === "complete" ? "" : "max-w-2xl"}`}>
             {status === "idle" ? (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="brand-panel overflow-hidden rounded-xl border focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">

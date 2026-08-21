@@ -1,3 +1,4 @@
+import { buildReasoningView } from "@/lib/reasoning/view";
 import { writeResolutionCopy } from "@/lib/ai/resolution";
 import {
   applyClarifyingAnswer,
@@ -253,6 +254,7 @@ export async function answerClaimClarification(
       message: resolution.message,
       clarifyingQuestion,
       clarificationApplied: true,
+      reasoning: buildReasoningView(diagnosis),
       eta,
       goodwill: diagnosis.goodwill
         ? {

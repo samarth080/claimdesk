@@ -2,6 +2,7 @@ import type { Json } from "@/lib/types/database";
 import type { ClaimContext, DiagnosisCode } from "@/lib/types/domain";
 import { demoOrderDate, getDemoScenario } from "@/lib/demo/scenarios";
 import { parseClaimAtIntake } from "@/lib/ai/parser";
+import { buildReasoningView } from "@/lib/reasoning/view";
 import { writeResolutionCopy } from "@/lib/ai/resolution";
 import {
   diagnoseClaim,
@@ -275,6 +276,7 @@ export async function submitClaimForDiagnosis(
       message: resolution.message,
       clarifyingQuestion,
       clarificationApplied: false,
+      reasoning: buildReasoningView(diagnosis),
       eta,
       goodwill: diagnosis.goodwill
         ? {

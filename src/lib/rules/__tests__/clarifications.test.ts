@@ -83,3 +83,51 @@ describe("clarifying-answer loop", () => {
     expect(result.explanation).toContain("36-hour");
   });
 });
+
+describe("action after a clarifying answer", () => {
+  it("reports a human escalation once an unmatched claim is rerouted", () => {
+    const context = makeContext({
+      claim: { claimedOrderDate: null, claimedOrderValue: null },
+    });
+    const initial = diagnoseClaim(context);
+    expect(initial.action.kind).toBe("question_asked");
+
+    const rerouted = routeAfterClarification(
+      context,
+      initial,
+      "ORDER_DATE",
+      "2026-08-15",
+    );
+
+    expect(rerouted.disposition).toBe("escalate_human");
+    expect(rerouted.action.kind).toBe("escalated_human");
+    expect(rerouted.action.detail).toContain("specialist");
+  });
+
+  it("reports a human escalation for a confirmed account mismatch", () => {
+    const context = makeContext({
+      order: { emailUsed: "different@example.test" },
+    });
+    const initial = diagnoseClaim(context);
+    expect(initial.code).toBe("ACCOUNT_MISMATCH");
+
+    const rerouted = routeAfterClarification(
+      context,
+      initial,
+      "WHICH_EMAIL",
+      "different@example.test",
+    );
+
+    expect(rerouted.action.kind).toBe("escalated_human");
+  });
+
+  it("leaves the action untouched when no reroute applies", () => {
+    const context = makeContext({ order: { status: "returned" } });
+    const initial = diagnoseClaim(context);
+
+    expect(
+      routeAfterClarification(context, initial, "WHICH_EMAIL", "a@b.test")
+        .action,
+    ).toEqual(initial.action);
+  });
+});

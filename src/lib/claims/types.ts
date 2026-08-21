@@ -1,3 +1,4 @@
+import type { ReasoningView } from "@/lib/reasoning/view";
 import type { PolicyCheck } from "@/lib/rules/goodwill";
 import type {
   ClarifyingQuestionId,
@@ -37,6 +38,7 @@ export type ClaimIntakeSuccess = {
   message: string;
   clarifyingQuestion: ClarifyingQuestionView | null;
   clarificationApplied: boolean;
+  reasoning: ReasoningView;
   eta: string | null;
   goodwill: {
     approved: boolean;
