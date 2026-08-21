@@ -51,16 +51,16 @@ export function PipelineStrip({
             className="relative flex flex-col justify-between bg-white px-3.5 py-3"
           >
             <div className="flex items-baseline gap-2">
-              <span className="font-mono text-[10px] tabular-nums text-zinc-400">
+              <span className="font-mono text-micro tabular-nums text-zinc-400">
                 {index + 1}
               </span>
-              <p className="text-[13px] font-semibold tracking-tight text-zinc-900">
+              <p className="text-body font-semibold tracking-tight text-zinc-900">
                 {stage.title}
               </p>
               {index < PIPELINE_STAGES.length - 1 ? (
                 <span
                   aria-hidden="true"
-                  className="ml-auto font-mono text-xs text-zinc-300"
+                  className="ml-auto font-mono text-detail text-zinc-300"
                 >
                   →
                 </span>
@@ -69,8 +69,8 @@ export function PipelineStrip({
             <p
               className={`mt-1.5 ${
                 value
-                  ? "font-mono text-[11px] leading-5 text-zinc-700"
-                  : "text-[11px] leading-5 text-zinc-500"
+                  ? "font-mono text-mini leading-5 text-zinc-700"
+                  : "text-mini leading-5 text-zinc-500"
               }`}
             >
               {value ?? stage.blurb}

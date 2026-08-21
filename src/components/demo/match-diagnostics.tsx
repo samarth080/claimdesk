@@ -18,17 +18,17 @@ export function MatchDiagnostics({
   return (
     <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-100 bg-zinc-50/70 px-4 py-2.5">
-        <p className="text-[13px] font-semibold text-zinc-900">
+        <p className="text-body font-semibold text-zinc-900">
           Order matching
         </p>
-        <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">
+        <p className="font-mono text-micro uppercase tracking-[0.12em] text-zinc-500">
           ±{match.toleranceHours} h
           {match.valueToleranceRupees !== null
             ? ` · ±${formatRupees(match.valueToleranceRupees)}`
             : ""}
         </p>
       </div>
-      <p className="px-4 py-2.5 text-[12px] leading-5 text-zinc-600">
+      <p className="px-4 py-2.5 text-detail leading-5 text-zinc-600">
         {match.headline}
       </p>
 
@@ -40,13 +40,13 @@ export function MatchDiagnostics({
               className={`px-4 py-2.5 ${candidate.selected ? "bg-emerald-50/50" : ""}`}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <p className="font-mono text-[11px] text-zinc-800">
+                <p className="font-mono text-mini text-zinc-800">
                   {retailerNames[candidate.retailerId] ?? candidate.retailerId} ·{" "}
                   {formatRupees(candidate.orderValue)} ·{" "}
                   {formatIndiaDateTime(candidate.orderedAt)}
                 </p>
                 <span
-                  className={`border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] ${
+                  className={`border px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.1em] ${
                     candidate.selected
                       ? "border-emerald-300 bg-emerald-50 text-emerald-800"
                       : candidate.passed
@@ -67,9 +67,9 @@ export function MatchDiagnostics({
                   {candidate.exclusions.map((exclusion) => (
                     <li
                       key={exclusion.constraint}
-                      className="flex flex-wrap items-baseline gap-2 text-[11px] leading-5 text-zinc-600"
+                      className="flex flex-wrap items-baseline gap-2 text-mini leading-5 text-zinc-600"
                     >
-                      <span className="border border-amber-300 bg-amber-50 px-1 font-mono text-[9px] uppercase tracking-[0.1em] text-amber-800">
+                      <span className="border border-amber-300 bg-amber-50 px-1 font-mono text-micro uppercase tracking-[0.1em] text-amber-800">
                         {CONSTRAINT_LABELS[exclusion.constraint]}
                       </span>
                       {exclusion.detail}
@@ -77,7 +77,7 @@ export function MatchDiagnostics({
                   ))}
                 </ul>
               ) : (
-                <p className="mt-1.5 font-mono text-[10px] leading-5 text-zinc-500">
+                <p className="mt-1.5 font-mono text-micro leading-5 text-zinc-500">
                   {candidate.dateDistanceHours !== null
                     ? `${candidate.dateDistanceHours} h from the stated date`
                     : "no date stated"}

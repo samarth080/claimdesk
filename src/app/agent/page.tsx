@@ -21,13 +21,13 @@ function Metric({
 }) {
   return (
     <div className="border-r border-zinc-200 px-5 py-4 last:border-r-0">
-      <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-zinc-400">
+      <p className="font-mono text-micro uppercase tracking-[0.15em] text-zinc-400">
         {label}
       </p>
-      <p className="mt-2 font-mono text-2xl font-medium tabular-nums text-zinc-950">
+      <p className="mt-2 font-mono text-headline font-medium tabular-nums text-zinc-950">
         {value}
       </p>
-      <p className="mt-1 text-[11px] text-zinc-500">{detail}</p>
+      <p className="mt-1 text-mini text-zinc-500">{detail}</p>
     </div>
   );
 }
@@ -42,23 +42,23 @@ export default async function AgentPage() {
       <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:py-10">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-700">
+            <p className="font-mono text-micro uppercase tracking-[0.18em] text-blue-700">
               Escalations only
             </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-zinc-950">
+            <h1 className="mt-2 text-display font-semibold tracking-[-0.035em] text-zinc-950">
               Pre-diagnosed claim queue
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
+            <p className="mt-3 max-w-2xl text-body leading-6 text-zinc-600">
               Every case arrives with the matched journey, ordered rule trace and
               a filing-ready packet. The agent confirms the evidence instead of
               reconstructing it from logs.
             </p>
           </div>
           <div className="border-l-2 border-blue-400 pl-4 lg:max-w-xs">
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
+            <p className="font-mono text-micro uppercase tracking-[0.14em] text-zinc-500">
               Workflow target
             </p>
-            <p className="mt-1 text-xs leading-5 text-zinc-600">
+            <p className="mt-1 text-detail leading-5 text-zinc-600">
               From roughly 12 minutes of log-digging to about 40 seconds of
               evidence confirmation.
             </p>
@@ -93,10 +93,10 @@ export default async function AgentPage() {
 
         <section aria-labelledby="queue-title" className="mt-7">
           <div className="mb-3 flex items-center justify-between gap-4">
-            <h2 id="queue-title" className="text-sm font-semibold text-zinc-900">
+            <h2 id="queue-title" className="text-body font-semibold text-zinc-900">
               Needs agent confirmation
             </h2>
-            <p className="font-mono text-[10px] text-zinc-400">
+            <p className="font-mono text-micro text-zinc-400">
               {queue.claims.length} cases · newest first
             </p>
           </div>

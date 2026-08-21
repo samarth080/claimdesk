@@ -75,8 +75,8 @@ function DiagnosisProgress() {
     >
       <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-4">
         <div>
-          <p className="text-sm font-medium text-zinc-950">Diagnosing your claim</p>
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="text-body font-medium text-zinc-950">Diagnosing your claim</p>
+          <p className="mt-1 text-detail text-zinc-500">
             Reading the evidence before choosing an answer.
           </p>
         </div>
@@ -88,12 +88,12 @@ function DiagnosisProgress() {
       <ol className="divide-y divide-zinc-100 px-5">
         {PROGRESS_STEPS.map((step, index) => (
           <li key={step.label} className="flex items-center gap-4 py-3.5">
-            <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+            <span className="font-mono text-mini tabular-nums text-zinc-400">
               0{index + 1}
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-sm text-zinc-800">{step.label}</p>
-              <p className="text-xs text-zinc-500">{step.detail}</p>
+              <p className="text-body text-zinc-800">{step.label}</p>
+              <p className="text-detail text-zinc-500">{step.detail}</p>
             </div>
             <span className="size-1.5 animate-pulse bg-zinc-300" />
           </li>
@@ -125,22 +125,22 @@ function DiagnosisResult({
       <div className="border-b border-zinc-200 px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span
-            className={`inline-flex items-center gap-2 border px-2.5 py-1 text-xs font-medium ${style.badge}`}
+            className={`inline-flex items-center gap-2 border px-2.5 py-1 text-detail font-medium ${style.badge}`}
           >
             <span className={`size-1.5 ${style.dot}`} />
             {style.label}
           </span>
-          <span className="font-mono text-[11px] tabular-nums text-zinc-500">
+          <span className="font-mono text-mini tabular-nums text-zinc-500">
             {result.code} · {Math.round(result.confidence * 100)}% confidence
           </span>
         </div>
-        <h2 className="mt-5 text-2xl font-semibold tracking-tight text-zinc-950">
+        <h2 className="mt-5 text-headline font-semibold tracking-tight text-zinc-950">
           {result.title}
         </h2>
-        <p className="mt-3 max-w-2xl text-[15px] leading-7 text-zinc-600">
+        <p className="mt-3 max-w-2xl text-lead leading-7 text-zinc-600">
           {result.message}
         </p>
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-400">
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-micro uppercase tracking-[0.12em] text-zinc-400">
           <span>
             Intake: {PARSER_SOURCE_LABELS[result.parserSource]}
           </span>
@@ -169,16 +169,16 @@ function DiagnosisResult({
 
       <div className="flex flex-col gap-4 bg-zinc-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
+          <p className="font-mono text-micro uppercase tracking-[0.16em] text-zinc-400">
             {result.caseId ? "Case ID" : "Claim ID"}
           </p>
-          <p className="mt-1 font-mono text-xs text-zinc-700">{referenceId}</p>
-          {result.eta ? <p className="mt-1 text-xs text-zinc-500">{result.eta}</p> : null}
+          <p className="mt-1 font-mono text-detail text-zinc-700">{referenceId}</p>
+          {result.eta ? <p className="mt-1 text-detail text-zinc-500">{result.eta}</p> : null}
         </div>
         <button
           type="button"
           onClick={onReset}
-          className="border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition hover:border-zinc-500 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+          className="border border-zinc-300 bg-white px-4 py-2 text-body font-medium text-zinc-800 transition hover:border-zinc-500 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
         >
           Check another claim
         </button>
@@ -289,25 +289,25 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
             {demoActive && demoScenario ? (
               <div className="mb-6 flex flex-col gap-3 rounded-r-lg border-l-[3px] border-[#f37021] bg-[#fff5ed] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#d6570b]">
+                  <p className="font-mono text-micro uppercase tracking-[0.15em] text-[#d6570b]">
                     Demo scenario · {demoScenario.name}
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-zinc-600">
+                  <p className="mt-1 text-detail leading-5 text-zinc-600">
                     {demoScenario.summary} Expected first code: {demoScenario.expectedCode}.
                   </p>
                 </div>
-                <Link href="/demo" className="shrink-0 text-xs font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-950">
+                <Link href="/demo" className="shrink-0 text-detail font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-950">
                   All scenarios
                 </Link>
               </div>
             ) : null}
-            <p className="brand-eyebrow font-mono text-[11px] uppercase tracking-[0.18em]">
+            <p className="brand-eyebrow font-mono text-mini uppercase tracking-[0.18em]">
               Cashback claim triage
             </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-zinc-950 sm:text-4xl">
+            <h1 className="mt-3 text-display font-semibold tracking-[-0.035em] text-zinc-950">
               Missing cashback, answered from the evidence.
             </h1>
-            <div className="mt-4 max-w-2xl space-y-2 text-[15px] leading-7 text-zinc-600">
+            <div className="mt-4 max-w-2xl space-y-2 text-lead leading-7 text-zinc-600">
               <p>
                 Missing cashback is the largest source of support tickets on a
                 cashback platform, and answering one means digging through click
@@ -329,13 +329,13 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
 
           {status === "complete" ? null : (
             <div className="mt-7 max-w-4xl">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
+              <p className="font-mono text-micro uppercase tracking-[0.14em] text-zinc-500">
                 What happens to your claim
               </p>
               <div className="mt-2">
                 <PipelineStrip />
               </div>
-              <p className="mt-3 text-[11px] leading-5 text-zinc-500">
+              <p className="mt-3 text-mini leading-5 text-zinc-500">
                 An independent prototype running on synthetic data. It is not
                 affiliated with or endorsed by any company, and every shopper,
                 retailer and transaction in it is invented.
@@ -349,7 +349,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
                 <div className="brand-panel overflow-hidden rounded-xl border focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
                   <label
                     htmlFor="claim-description"
-                    className="block border-b border-zinc-100 px-4 py-3 text-xs font-medium text-zinc-700"
+                    className="block border-b border-zinc-100 px-4 py-3 text-detail font-medium text-zinc-700"
                   >
                     Describe your missing cashback
                   </label>
@@ -361,22 +361,22 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
                     maxLength={1500}
                     rows={6}
                     placeholder="I ordered home supplies from Nimbus Mart about 6 hours ago for ₹1,849, but the cashback is not showing."
-                    className="block w-full resize-none bg-transparent px-4 py-4 text-[15px] leading-7 text-zinc-950 outline-none placeholder:text-zinc-400 disabled:bg-zinc-50 disabled:text-zinc-500"
+                    className="block w-full resize-none bg-transparent px-4 py-4 text-lead leading-7 text-zinc-950 outline-none placeholder:text-zinc-400 disabled:bg-zinc-50 disabled:text-zinc-500"
                   />
-                  <div className="flex items-center justify-between border-t border-zinc-100 px-4 py-2 text-[11px] text-zinc-400">
+                  <div className="flex items-center justify-between border-t border-zinc-100 px-4 py-2 text-mini text-zinc-400">
                     <span>Retailer, approximate date and value help most</span>
                     <span className="font-mono tabular-nums">{rawText.length}/1500</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-xs leading-5 text-zinc-500">
+                  <p className="text-detail leading-5 text-zinc-500">
                     No payment or account changes are made.
                   </p>
                   <button
                     type="submit"
                     disabled={rawText.trim().length < 12}
-                    className="brand-button shrink-0 rounded-lg px-5 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:shadow-none"
+                    className="brand-button shrink-0 rounded-lg px-5 py-2.5 text-body font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:shadow-none"
                   >
                     Check my claim
                   </button>
@@ -410,11 +410,11 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
 
             {status === "error" && errorResponse ? (
               <div className="border border-amber-200 bg-white p-6">
-                <p role="alert" className="text-sm text-amber-900">{errorResponse.error}</p>
+                <p role="alert" className="text-body text-amber-900">{errorResponse.error}</p>
                 <button
                   type="button"
                   onClick={() => setStatus("idle")}
-                  className="mt-4 border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-800 hover:border-zinc-500"
+                  className="mt-4 border border-zinc-300 px-4 py-2 text-body font-medium text-zinc-800 hover:border-zinc-500"
                 >
                   Try again
                 </button>

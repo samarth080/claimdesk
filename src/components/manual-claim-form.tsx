@@ -31,20 +31,20 @@ export function ManualClaimForm({
   return (
     <section aria-labelledby="manual-details-title" className="border border-amber-200 bg-white">
       <div className="border-b border-amber-200 bg-amber-50/60 px-5 py-4 sm:px-6">
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-amber-800">
+        <p className="font-mono text-micro uppercase tracking-[0.16em] text-amber-800">
           Parsing fallback
         </p>
-        <h2 id="manual-details-title" className="mt-2 text-lg font-semibold text-zinc-950">
+        <h2 id="manual-details-title" className="mt-2 text-title font-semibold text-zinc-950">
           Add the three essentials
         </h2>
-        <p role="alert" className="mt-2 text-sm leading-6 text-zinc-600">
+        <p role="alert" className="mt-2 text-body leading-6 text-zinc-600">
           {message}
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5 px-5 py-5 sm:px-6">
         <div>
-          <label htmlFor="manual-retailer" className="block text-xs font-medium text-zinc-700">
+          <label htmlFor="manual-retailer" className="block text-detail font-medium text-zinc-700">
             Retailer
           </label>
           <select
@@ -52,7 +52,7 @@ export function ManualClaimForm({
             value={retailerId}
             onChange={(event) => setRetailerId(event.target.value)}
             required
-            className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
+            className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
           >
             <option value="">Choose a retailer</option>
             {retailerOptions.map((retailer) => (
@@ -65,7 +65,7 @@ export function ManualClaimForm({
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="manual-order-date" className="block text-xs font-medium text-zinc-700">
+            <label htmlFor="manual-order-date" className="block text-detail font-medium text-zinc-700">
               Order date
             </label>
             <input
@@ -77,15 +77,15 @@ export function ManualClaimForm({
               onChange={(event) => setOrderDate(event.target.value)}
               required
               placeholder="YYYY-MM-DD"
-              className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
+              className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
             />
           </div>
           <div>
-            <label htmlFor="manual-order-value" className="block text-xs font-medium text-zinc-700">
+            <label htmlFor="manual-order-value" className="block text-detail font-medium text-zinc-700">
               Order value
             </label>
             <div className="mt-2 flex overflow-hidden rounded-lg border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
-              <span className="border-r border-zinc-200 px-3 py-2.5 text-sm text-zinc-500">₹</span>
+              <span className="border-r border-zinc-200 px-3 py-2.5 text-body text-zinc-500">₹</span>
               <input
                 id="manual-order-value"
                 type="number"
@@ -96,7 +96,7 @@ export function ManualClaimForm({
                 onChange={(event) => setOrderValue(event.target.value)}
                 required
                 placeholder="2400"
-                className="min-w-0 flex-1 px-3 py-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400"
+                className="min-w-0 flex-1 px-3 py-2.5 text-body text-zinc-900 outline-none placeholder:text-zinc-400"
               />
             </div>
           </div>
@@ -106,14 +106,14 @@ export function ManualClaimForm({
           <button
             type="button"
             onClick={onCancel}
-            className="px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950"
+            className="px-3 py-2 text-body font-medium text-zinc-600 hover:text-zinc-950"
           >
             Edit description
           </button>
           <button
             type="submit"
             disabled={!canSubmit}
-            className="brand-button rounded-lg px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:bg-zinc-300"
+            className="brand-button rounded-lg px-5 py-2.5 text-body font-semibold disabled:cursor-not-allowed disabled:bg-zinc-300"
           >
             Continue diagnosis
           </button>

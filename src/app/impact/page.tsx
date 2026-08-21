@@ -34,13 +34,13 @@ function OutcomeMetric({
 
   return (
     <div className="border-r border-zinc-200 px-5 py-4 last:border-r-0">
-      <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-zinc-400">
+      <p className="font-mono text-micro uppercase tracking-[0.15em] text-zinc-400">
         {label}
       </p>
-      <p className={`mt-2 font-mono text-2xl font-medium tabular-nums ${toneStyle}`}>
+      <p className={`mt-2 font-mono text-headline font-medium tabular-nums ${toneStyle}`}>
         {value}
       </p>
-      <p className="mt-1 text-[11px] text-zinc-500">{detail}</p>
+      <p className="mt-1 text-mini text-zinc-500">{detail}</p>
     </div>
   );
 }
@@ -55,13 +55,13 @@ export default async function ImpactPage() {
       <div className="mx-auto max-w-[1280px] px-5 py-8 sm:px-8 lg:py-10">
         <header className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="brand-eyebrow font-mono text-[10px] uppercase tracking-[0.18em]">
+            <p className="brand-eyebrow font-mono text-micro uppercase tracking-[0.18em]">
               Projection, not a result
             </p>
-            <h1 className="mt-2 max-w-3xl text-3xl font-semibold tracking-[-0.035em] text-zinc-950">
+            <h1 className="mt-2 max-w-3xl text-display font-semibold tracking-[-0.035em] text-zinc-950">
               Projected impact — synthetic dataset, assumptions below
             </h1>
-            <p className="mt-3 max-w-2xl text-[13px] leading-6 text-zinc-600">
+            <p className="mt-3 max-w-2xl text-body leading-6 text-zinc-600">
               Nothing here has been measured against a real support queue. The
               claim counts are real counts of synthetic claims; everything past
               that point is arithmetic over two editable assumptions, shown one
@@ -69,10 +69,10 @@ export default async function ImpactPage() {
             </p>
           </div>
           <div className="border-l-2 border-zinc-300 pl-4 lg:max-w-xs">
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
+            <p className="font-mono text-micro uppercase tracking-[0.14em] text-zinc-500">
               What would make this real
             </p>
-            <p className="mt-1 text-[12px] leading-5 text-zinc-600">
+            <p className="mt-1 text-detail leading-5 text-zinc-600">
               A shadow-mode run against historical claims, with agent overrides
               and reopen rates measured per diagnosis code.
             </p>
@@ -117,11 +117,11 @@ export default async function ImpactPage() {
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-zinc-200 pb-2.5">
             <h2
               id="caveats-title"
-              className="text-[15px] font-semibold tracking-tight text-zinc-950"
+              className="text-lead font-semibold tracking-tight text-zinc-950"
             >
               What would change this in production
             </h2>
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-mini text-zinc-500">
               The three assumptions most likely to be wrong
             </p>
           </div>
@@ -132,14 +132,14 @@ export default async function ImpactPage() {
                 className="rounded-lg border border-zinc-200 bg-white px-4 py-3.5"
               >
                 <div className="flex items-baseline gap-2.5">
-                  <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+                  <span className="font-mono text-mini tabular-nums text-zinc-400">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-[13px] font-semibold text-zinc-900">
+                  <p className="text-body font-semibold text-zinc-900">
                     {caveat.title}
                   </p>
                 </div>
-                <p className="mt-2 text-[12px] leading-5 text-zinc-600">
+                <p className="mt-2 text-detail leading-5 text-zinc-600">
                   {caveat.detail}
                 </p>
               </li>
@@ -151,7 +151,7 @@ export default async function ImpactPage() {
           <DiagnosisBreakdown rows={summary.breakdown} />
         </div>
 
-        <p className="mt-8 border-l-2 border-zinc-300 pl-4 text-[11px] leading-5 text-zinc-500">
+        <p className="mt-8 border-l-2 border-zinc-300 pl-4 text-mini leading-5 text-zinc-500">
           Independent prototype on synthetic data, unaffiliated with any
           company. Claim counts move when demo claims are submitted, so the
           percentages above describe this dataset at this moment rather than a

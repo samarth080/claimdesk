@@ -20,16 +20,16 @@ export function AppHeader({ active, subtitle, maxWidth = "standard" }: AppHeader
     <header className="border-b border-zinc-200 border-t-[3px] border-t-[#f37021] bg-white shadow-[0_2px_12px_rgba(24,24,27,0.05)]">
       <div className={`mx-auto flex ${widthClass} flex-col items-stretch justify-between gap-3 px-5 py-3.5 sm:flex-row sm:items-center sm:gap-5 sm:px-8`}>
         <Link href="/" aria-label="ClaimDesk intake" className="flex min-w-0 items-center gap-3">
-          <span className="flex h-8 shrink-0 items-stretch overflow-hidden rounded-md font-mono text-[11px] font-bold text-white shadow-sm">
+          <span className="flex h-8 shrink-0 items-stretch overflow-hidden rounded-md font-mono text-mini font-bold text-white shadow-sm">
             <span className="flex w-7 items-center justify-center bg-[#f37021]">C</span>
             <span className="flex w-7 items-center justify-center bg-[#0b5fc6]">D</span>
           </span>
           <span className="min-w-0">
-            <span className="block text-[15px] font-extrabold tracking-[-0.035em]">
+            <span className="block text-lead font-extrabold tracking-[-0.035em]">
               <span className="text-[#f37021]">CLAIM</span>
               <span className="text-[#0b5fc6]">DESK</span>
             </span>
-            <span className="block truncate text-[10px] font-medium text-zinc-500">{subtitle}</span>
+            <span className="block truncate text-micro font-medium text-zinc-500">{subtitle}</span>
           </span>
         </Link>
 
@@ -45,7 +45,7 @@ export function AppHeader({ active, subtitle, maxWidth = "standard" }: AppHeader
               <span
                 key={item.key}
                 aria-current="page"
-                className={`rounded-md px-2 py-2 text-center text-[11px] font-semibold sm:px-3 sm:text-xs ${activeClass}`}
+                className={`rounded-md px-2 py-2 text-center text-mini font-semibold sm:px-3 sm:text-detail ${activeClass}`}
               >
                 {item.label}
               </span>
@@ -53,7 +53,7 @@ export function AppHeader({ active, subtitle, maxWidth = "standard" }: AppHeader
               <Link
                 key={item.key}
                 href={item.href}
-                className="rounded-md px-2 py-2 text-center text-[11px] font-semibold text-zinc-600 transition hover:bg-white hover:text-zinc-950 sm:px-3 sm:text-xs"
+                className="rounded-md px-2 py-2 text-center text-mini font-semibold text-zinc-600 transition hover:bg-white hover:text-zinc-950 sm:px-3 sm:text-detail"
               >
                 {item.label}
               </Link>

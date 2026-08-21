@@ -16,6 +16,25 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Eight steps, each with one job. micro/mini carry mono labels, field names
+     and tags; detail and body carry prose; lead upward carries headings. */
+  --text-micro: 0.625rem;
+  --text-micro--line-height: 0.875rem;
+  --text-mini: 0.6875rem;
+  --text-mini--line-height: 1rem;
+  --text-detail: 0.75rem;
+  --text-detail--line-height: 1.125rem;
+  --text-body: 0.8125rem;
+  --text-body--line-height: 1.375rem;
+  --text-lead: 0.9375rem;
+  --text-lead--line-height: 1.625rem;
+  --text-title: 1.125rem;
+  --text-title--line-height: 1.5rem;
+  --text-headline: 1.5rem;
+  --text-headline--line-height: 1.75rem;
+  --text-display: 1.875rem;
+  --text-display--line-height: 2.125rem;
 }
 
 body {
