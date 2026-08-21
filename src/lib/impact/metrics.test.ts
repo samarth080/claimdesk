@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  calculateAvoidedImpact,
+  buildProjectionChain,
+  DEFAULT_IMPACT_ASSUMPTIONS,
   summarizeImpact,
   type ImpactClaimRow,
 } from "./metrics";
@@ -50,20 +51,81 @@ describe("impact metrics", () => {
       share: 2 / 7,
     });
   });
+});
 
-  it("calculates savings only from resolved claims", () => {
-    expect(calculateAvoidedImpact(35, 45, 11)).toEqual({
-      humanTouchesAvoided: 35,
-      estimatedCostAvoided: 1_575,
-      agentMinutesAvoided: 385,
+describe("projection chain", () => {
+  const summary = summarizeImpact(rows);
+
+  it("shows the arithmetic as four ordered steps", () => {
+    const chain = buildProjectionChain(summary, DEFAULT_IMPACT_ASSUMPTIONS);
+
+    expect(chain.steps.map((step) => step.id)).toEqual([
+      "total",
+      "auto_resolved",
+      "minutes",
+      "cost",
+    ]);
+    expect(chain.steps.map((step) => step.unit)).toEqual([
+      "claims",
+      "claims",
+      "minutes",
+      "rupees",
+    ]);
+  });
+
+  it("counts only resolved claims into the projection", () => {
+    const chain = buildProjectionChain(summary, DEFAULT_IMPACT_ASSUMPTIONS);
+
+    expect(chain.steps[0]?.value).toBe(7);
+    expect(chain.steps[1]?.value).toBe(3);
+    expect(chain.humanTouchesAvoided).toBe(3);
+  });
+
+  it("multiplies through handle time and then cost per minute", () => {
+    const chain = buildProjectionChain(summary, {
+      handleTimeMinutes: 11,
+      costPerMinute: 4,
     });
+
+    expect(chain.steps[2]?.value).toBe(33);
+    expect(chain.steps[3]?.value).toBe(132);
+    expect(chain.agentMinutesAvoided).toBe(33);
+    expect(chain.projectedCostAvoided).toBe(132);
+  });
+
+  it("recomputes when an assumption is changed", () => {
+    const chain = buildProjectionChain(summary, {
+      handleTimeMinutes: 20,
+      costPerMinute: 5,
+    });
+
+    expect(chain.agentMinutesAvoided).toBe(60);
+    expect(chain.projectedCostAvoided).toBe(300);
   });
 
   it("clamps disputed assumptions at zero", () => {
-    expect(calculateAvoidedImpact(3, -45, -11)).toEqual({
-      humanTouchesAvoided: 3,
-      estimatedCostAvoided: 0,
-      agentMinutesAvoided: 0,
+    const chain = buildProjectionChain(summary, {
+      handleTimeMinutes: -11,
+      costPerMinute: -4,
     });
+
+    expect(chain.agentMinutesAvoided).toBe(0);
+    expect(chain.projectedCostAvoided).toBe(0);
+    expect(chain.humanTouchesAvoided).toBe(3);
+  });
+
+  it("points each claim-count step at the bucket it filters to", () => {
+    const chain = buildProjectionChain(summary, DEFAULT_IMPACT_ASSUMPTIONS);
+
+    expect(chain.steps[0]?.bucket).toBe("all");
+    expect(chain.steps[1]?.bucket).toBe("resolved");
+    expect(chain.steps[2]?.bucket).toBeNull();
+  });
+
+  it("states where every default assumption came from", () => {
+    const chain = buildProjectionChain(summary, DEFAULT_IMPACT_ASSUMPTIONS);
+
+    expect(chain.steps.every((step) => step.note.length > 0)).toBe(true);
+    expect(chain.steps[2]?.operator).toContain("11");
   });
 });

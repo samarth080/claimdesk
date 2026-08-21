@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
+
 import { AppHeader } from "@/components/app-header";
-import { AssumptionsCalculator } from "@/components/impact/assumptions-calculator";
 import { DiagnosisBreakdown } from "@/components/impact/diagnosis-breakdown";
+import { ProjectionChain } from "@/components/impact/projection-chain";
 import { loadImpactSummary } from "@/lib/impact/data";
+import { PRODUCTION_CAVEATS } from "@/lib/impact/metrics";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Impact dashboard · ClaimDesk",
-  description: "Claim deflection, escalation mix and editable cost assumptions",
+  title: "Projected impact · ClaimDesk",
+  description:
+    "A projection from synthetic claims, with the arithmetic and assumptions shown",
 };
 
-function SummaryMetric({
+function OutcomeMetric({
   label,
   value,
   detail,
@@ -30,11 +33,11 @@ function SummaryMetric({
   }[tone];
 
   return (
-    <div className="border-r border-zinc-200 px-5 py-5 last:border-r-0">
+    <div className="border-r border-zinc-200 px-5 py-4 last:border-r-0">
       <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-zinc-400">
         {label}
       </p>
-      <p className={`mt-2 font-mono text-3xl font-medium tabular-nums ${toneStyle}`}>
+      <p className={`mt-2 font-mono text-2xl font-medium tabular-nums ${toneStyle}`}>
         {value}
       </p>
       <p className="mt-1 text-[11px] text-zinc-500">{detail}</p>
@@ -43,96 +46,117 @@ function SummaryMetric({
 }
 
 export default async function ImpactPage() {
-  const impact = await loadImpactSummary();
+  const { claims, summary } = await loadImpactSummary();
 
   return (
     <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
-      <AppHeader active="impact" subtitle="CashKaro impact model" />
+      <AppHeader active="impact" subtitle="Projected impact" />
 
       <div className="mx-auto max-w-[1280px] px-5 py-8 sm:px-8 lg:py-10">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <header className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="brand-eyebrow font-mono text-[10px] uppercase tracking-[0.18em]">
-              Deflection dashboard
+              Projection, not a result
             </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-zinc-950">
-              What the engine handles — and what it doesn’t
+            <h1 className="mt-2 max-w-3xl text-3xl font-semibold tracking-[-0.035em] text-zinc-950">
+              Projected impact — synthetic dataset, assumptions below
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
-              Live claim outcomes from synthetic evidence. Savings count only
-              completed auto-resolutions; clarification and escalation remain
-              visible instead of being folded into a flattering headline.
+            <p className="mt-3 max-w-2xl text-[13px] leading-6 text-zinc-600">
+              Nothing here has been measured against a real support queue. The
+              claim counts are real counts of synthetic claims; everything past
+              that point is arithmetic over two editable assumptions, shown one
+              step at a time so each step can be disputed on its own.
             </p>
           </div>
           <div className="border-l-2 border-zinc-300 pl-4 lg:max-w-xs">
             <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
-              Measurement note
+              What would make this real
             </p>
-            <p className="mt-1 text-xs leading-5 text-zinc-600">
-              Independent prototype, synthetic data. Cost and time values below
-              are explicitly editable assumptions.
+            <p className="mt-1 text-[12px] leading-5 text-zinc-600">
+              A shadow-mode run against historical claims, with agent overrides
+              and reopen rates measured per diagnosis code.
             </p>
           </div>
-        </div>
+        </header>
 
         <section
-          aria-label="Claim outcome summary"
+          aria-label="Claim outcome mix"
           className="brand-panel mt-7 grid overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-4"
         >
-          <SummaryMetric
+          <OutcomeMetric
             label="Total claims"
-            value={String(impact.total)}
-            detail={`${impact.diagnosed} have a diagnosis code`}
+            value={String(summary.total)}
+            detail={`${summary.diagnosed} carry a diagnosis code`}
             tone="neutral"
           />
-          <SummaryMetric
+          <OutcomeMetric
             label="Auto-resolved"
-            value={`${(impact.resolvedRate * 100).toFixed(1)}%`}
-            detail={`${impact.resolved} claims completed`}
+            value={`${(summary.resolvedRate * 100).toFixed(1)}%`}
+            detail={`${summary.resolved} closed with no human touch`}
             tone="resolved"
           />
-          <SummaryMetric
+          <OutcomeMetric
             label="Needs one answer"
-            value={`${(impact.needsInputRate * 100).toFixed(1)}%`}
-            detail={`${impact.needsInput} claims awaiting input`}
+            value={`${(summary.needsInputRate * 100).toFixed(1)}%`}
+            detail={`${summary.needsInput} awaiting input, not yet deflected`}
             tone="input"
           />
-          <SummaryMetric
+          <OutcomeMetric
             label="Escalated"
-            value={`${(impact.escalatedRate * 100).toFixed(1)}%`}
-            detail={`${impact.escalated} correctly routed cases`}
+            value={`${(summary.escalatedRate * 100).toFixed(1)}%`}
+            detail={`${summary.escalated} correctly routed, still real work`}
             tone="escalated"
           />
         </section>
 
-        <div className="mt-7">
-          <AssumptionsCalculator resolvedClaims={impact.resolved} />
-        </div>
-
         <div className="mt-9">
-          <DiagnosisBreakdown rows={impact.breakdown} />
+          <ProjectionChain summary={summary} claims={claims} />
         </div>
 
-        <aside className="mt-7 grid gap-4 border border-zinc-200 bg-white px-5 py-5 text-xs leading-5 text-zinc-600 md:grid-cols-3">
-          <div>
-            <p className="font-mono text-[9px] uppercase tracking-[0.13em] text-emerald-700">
-              Counted as deflection
+        <section aria-labelledby="caveats-title" className="mt-10">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-zinc-200 pb-2.5">
+            <h2
+              id="caveats-title"
+              className="text-[15px] font-semibold tracking-tight text-zinc-950"
+            >
+              What would change this in production
+            </h2>
+            <p className="text-[11px] text-zinc-500">
+              The three assumptions most likely to be wrong
             </p>
-            <p className="mt-1">Only claims whose persisted status is resolved.</p>
           </div>
-          <div>
-            <p className="font-mono text-[9px] uppercase tracking-[0.13em] text-amber-700">
-              Not counted yet
-            </p>
-            <p className="mt-1">Claims waiting for a targeted clarifying answer.</p>
-          </div>
-          <div>
-            <p className="font-mono text-[9px] uppercase tracking-[0.13em] text-blue-700">
-              Correct escalation
-            </p>
-            <p className="mt-1">Network and human cases remain operational work.</p>
-          </div>
-        </aside>
+          <ol className="mt-4 grid gap-3 lg:grid-cols-3">
+            {PRODUCTION_CAVEATS.map((caveat, index) => (
+              <li
+                key={caveat.title}
+                className="rounded-lg border border-zinc-200 bg-white px-4 py-3.5"
+              >
+                <div className="flex items-baseline gap-2.5">
+                  <span className="font-mono text-[11px] tabular-nums text-zinc-400">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-[13px] font-semibold text-zinc-900">
+                    {caveat.title}
+                  </p>
+                </div>
+                <p className="mt-2 text-[12px] leading-5 text-zinc-600">
+                  {caveat.detail}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div className="mt-10">
+          <DiagnosisBreakdown rows={summary.breakdown} />
+        </div>
+
+        <p className="mt-8 border-l-2 border-zinc-300 pl-4 text-[11px] leading-5 text-zinc-500">
+          Independent prototype on synthetic data, unaffiliated with any
+          company. Claim counts move when demo claims are submitted, so the
+          percentages above describe this dataset at this moment rather than a
+          fixed benchmark.
+        </p>
       </div>
     </main>
   );
