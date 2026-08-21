@@ -10,6 +10,7 @@ import { routeAfterClarification } from "@/lib/rules/clarifications";
 import { formatIndiaDateTime, formatRupees } from "@/lib/rules/dates";
 import { diagnoseClaim, type DiagnosisResult } from "@/lib/rules/engine";
 import { matchEvidence, matchOrder } from "@/lib/rules/evidence";
+import { readEvidence } from "@/lib/rules/reading";
 import { CLARIFYING_QUESTIONS } from "@/lib/rules/questions";
 import { RULES } from "@/lib/rules/rules";
 import { createServerClient } from "@/lib/supabase/server";
@@ -120,11 +121,20 @@ function diagnoseForAgent(
         "This stored escalation could not be reproduced from the current evidence snapshot. Keep it with a human so the evidence drift can be checked instead of silently changing the outcome.",
       goodwill: null,
       escalationPacket: null,
-      trace: RULES.map((candidate) => ({
+      trace: RULES.map((candidate, index) => ({
         code: candidate.code,
         status: "skipped" as const,
         detail: "Current evidence test did not match.",
+        order: index + 1,
+        outcome: "not_matched" as const,
+        reason: "Re-evaluated against the current snapshot; no match.",
       })),
+      evidenceRead: readEvidence(context),
+      action: {
+        kind: "escalated_human" as const,
+        detail:
+          "Held with a specialist because the stored outcome could not be reproduced from the current evidence snapshot.",
+      },
     };
   }
 }

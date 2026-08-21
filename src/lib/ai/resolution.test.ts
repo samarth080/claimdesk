@@ -14,6 +14,11 @@ const diagnosis: DiagnosisResult = {
   goodwill: null,
   escalationPacket: null,
   trace: [],
+  evidenceRead: [],
+  action: {
+    kind: "message_sent",
+    detail: "The diagnosis was written back to the claimant as a resolution message.",
+  },
 };
 
 const fallback =

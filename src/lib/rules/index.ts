@@ -5,4 +5,5 @@ export * from "./escalation";
 export * from "./evidence";
 export * from "./goodwill";
 export * from "./questions";
+export * from "./reading";
 export * from "./rules";

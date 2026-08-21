@@ -143,4 +143,9 @@ export type Rule = {
   disposition: Disposition;
   goodwillEligible: boolean;
   explain: (ctx: ClaimContext) => string;
+  /**
+   * One line naming the evidence this rule's test just read, phrased so it
+   * reads correctly whether the test matched or not.
+   */
+  reason: (ctx: ClaimContext) => string;
 };
