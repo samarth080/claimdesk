@@ -69,8 +69,8 @@ function StageJoin() {
 
 function EvidenceGroup({ group }: { group: EvidenceGroupView }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
-      <div className="border-b border-zinc-100 bg-zinc-50/70 px-3.5 py-2.5">
+    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+      <div className="border-b border-zinc-100 brand-subtle px-3.5 py-2.5">
         <div className="flex items-baseline justify-between gap-2">
           <p className="text-body font-semibold text-zinc-900">
             {group.label}
@@ -87,7 +87,7 @@ function EvidenceGroup({ group }: { group: EvidenceGroupView }) {
           <div
             key={reading.field}
             className={`grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] items-baseline gap-3 px-3.5 py-2 ${
-              reading.found ? "" : "bg-zinc-50/60"
+              reading.found ? "" : "brand-subtle"
             }`}
           >
             <dt className="min-w-0">
@@ -114,7 +114,7 @@ function EvidenceGroup({ group }: { group: EvidenceGroupView }) {
         ))}
       </dl>
       {group.withheldNote ? (
-        <p className="border-t border-zinc-100 bg-zinc-50/60 px-3.5 py-2 text-micro leading-4 text-zinc-500">
+        <p className="border-t border-zinc-100 brand-subtle px-3.5 py-2 text-micro leading-4 text-zinc-500">
           {group.withheldNote}
         </p>
       ) : null}
@@ -160,7 +160,7 @@ function RuleLadder({ rules }: { rules: RuleStepView[] }) {
               </div>
 
               <div
-                className={`my-0.5 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 rounded-lg border px-3 py-2.5 ${
+                className={`my-0.5 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 rounded-xl border px-3 py-2.5 ${
                   matched
                     ? "border-emerald-300 bg-white shadow-[0_1px_3px_rgba(24,24,27,0.06)]"
                     : notReached
@@ -210,7 +210,7 @@ function RuleLadder({ rules }: { rules: RuleStepView[] }) {
                 </div>
 
                 <span
-                  className={`shrink-0 border px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.1em] ${
+                  className={`shrink-0 border px-1.5 py-0.5 rounded-full font-mono text-micro uppercase tracking-[0.1em] ${
                     matched
                       ? "border-emerald-300 bg-emerald-50 text-emerald-800"
                       : notReached
@@ -256,7 +256,7 @@ function ActionStage({
   return (
     <div className="mt-4">
       <div
-        className={`rounded-lg border ${tone.border} ${tone.surface} px-4 py-3.5`}
+        className={`rounded-xl border ${tone.border} ${tone.surface} px-4 py-3.5`}
       >
         <p
           className={`font-mono text-micro uppercase tracking-[0.14em] ${tone.text}`}
@@ -277,7 +277,7 @@ function ActionStage({
             {action.policyChecks.map((check) => (
               <li
                 key={check.rule}
-                className={`rounded-lg border p-3 ${
+                className={`rounded-xl border p-3 ${
                   check.passed
                     ? "border-emerald-200 bg-white"
                     : "border-amber-300 bg-amber-50/60"
@@ -317,7 +317,7 @@ function ActionPacket({ action }: { action: ActionView }) {
   if (!packet) return null;
 
   return (
-    <div className="mt-4 overflow-hidden rounded-lg border border-blue-200 bg-white">
+    <div className="mt-4 overflow-hidden rounded-xl border border-blue-200 bg-white">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-blue-100 bg-blue-50/60 px-4 py-2.5">
         <p className="font-mono text-micro uppercase tracking-[0.14em] text-blue-800">
           {packet.heading}
@@ -392,7 +392,7 @@ export function DecisionPath({
       />
 
       <details open={defaultOpen} className="group mt-3">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-body font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600 [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-body font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600 [&::-webkit-details-marker]:hidden">
           <span className="group-open:hidden">Show how this was decided</span>
           <span className="hidden group-open:inline">Hide the decision path</span>
           <span
@@ -439,7 +439,7 @@ export function DecisionPath({
               blurb="One code, and why"
               meta={`${Math.round(diagnosis.confidence * 100)}% confidence`}
             />
-            <div className="mt-4 rounded-lg border border-zinc-200 bg-white px-4 py-3.5">
+            <div className="mt-4 rounded-xl border border-zinc-200 bg-white px-4 py-3.5">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <p className="font-mono text-body font-semibold text-zinc-950">
                   {diagnosis.code}

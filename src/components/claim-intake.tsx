@@ -125,7 +125,7 @@ function DiagnosisResult({
       <div className="border-b border-zinc-200 px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span
-            className={`inline-flex items-center gap-2 border px-2.5 py-1 text-detail font-medium ${style.badge}`}
+            className={`inline-flex items-center gap-2 border px-2.5 py-1 rounded-full text-detail font-medium ${style.badge}`}
           >
             <span className={`size-1.5 ${style.dot}`} />
             {style.label}
@@ -280,7 +280,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
     response && !response.success && response.kind === "error" ? response : null;
 
   return (
-    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+    <main className="min-h-screen bg-background text-zinc-950">
       <AppHeader active="intake" subtitle="Independent prototype · synthetic data" />
 
       <div className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:py-14">
@@ -346,7 +346,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
           <div className={`mt-8 ${status === "complete" ? "" : "max-w-2xl"}`}>
             {status === "idle" ? (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="brand-panel overflow-hidden rounded-xl border focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
+                <div className="brand-panel overflow-hidden rounded-2xl border focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
                   <label
                     htmlFor="claim-description"
                     className="block border-b border-zinc-100 px-4 py-3 text-detail font-medium text-zinc-700"
@@ -376,7 +376,7 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
                   <button
                     type="submit"
                     disabled={rawText.trim().length < 12}
-                    className="brand-button shrink-0 rounded-lg px-5 py-2.5 text-body font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:shadow-none"
+                    className="brand-button shrink-0 rounded-full px-5 py-2.5 text-body font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:shadow-none"
                   >
                     Check my claim
                   </button>

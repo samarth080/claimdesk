@@ -55,7 +55,7 @@ function AssumptionInput({
       <label htmlFor={id} className="text-detail font-medium text-zinc-700">
         {label}
       </label>
-      <div className="mt-1.5 flex overflow-hidden rounded-lg border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
+      <div className="mt-1.5 flex overflow-hidden rounded-xl border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
         {prefix ? (
           <span className="border-r border-zinc-200 px-2.5 py-2 font-mono text-body text-zinc-500">
             {prefix}
@@ -104,7 +104,7 @@ function ClaimList({
   return (
     <section
       aria-live="polite"
-      className="mt-4 overflow-hidden rounded-xl border border-zinc-200 bg-white"
+      className="mt-4 overflow-hidden rounded-2xl border border-zinc-200 bg-white"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-zinc-200 bg-zinc-50 px-4 py-3">
         <div>
@@ -138,7 +138,7 @@ function ClaimList({
           </thead>
           <tbody className="divide-y divide-zinc-100">
             {filtered.map((claim) => (
-              <tr key={claim.id} className="hover:bg-zinc-50/70">
+              <tr key={claim.id} className="hover:brand-subtle">
                 <td className="px-4 py-2.5">
                   <p className="font-mono text-mini text-zinc-800">
                     {claim.reference}
@@ -236,7 +236,7 @@ export function ProjectionChain({
           return (
             <li
               key={step.id}
-              className={`relative flex flex-col rounded-lg border px-4 py-3.5 ${
+              className={`relative flex flex-col rounded-xl border px-4 py-3.5 ${
                 isCost
                   ? "border-zinc-400 bg-white"
                   : "border-zinc-200 bg-white"
@@ -285,7 +285,7 @@ export function ProjectionChain({
         })}
       </ol>
 
-      <div className="mt-4 grid gap-4 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-4 sm:grid-cols-[minmax(0,220px)_minmax(0,220px)_minmax(0,1fr)] sm:items-start">
+      <div className="mt-4 grid gap-4 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-4 sm:grid-cols-[minmax(0,220px)_minmax(0,220px)_minmax(0,1fr)] sm:items-start">
         <AssumptionInput
           id="handle-time"
           label="Average handle time"

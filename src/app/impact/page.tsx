@@ -49,7 +49,7 @@ export default async function ImpactPage() {
   const { claims, summary } = await loadImpactSummary();
 
   return (
-    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+    <main className="min-h-screen bg-background text-zinc-950">
       <AppHeader active="impact" subtitle="Projected impact" />
 
       <div className="mx-auto max-w-[1280px] px-5 py-8 sm:px-8 lg:py-10">
@@ -81,7 +81,7 @@ export default async function ImpactPage() {
 
         <section
           aria-label="Claim outcome mix"
-          className="brand-panel mt-7 grid overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-4"
+          className="brand-panel mt-7 grid overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-4"
         >
           <OutcomeMetric
             label="Total claims"
@@ -129,7 +129,7 @@ export default async function ImpactPage() {
             {PRODUCTION_CAVEATS.map((caveat, index) => (
               <li
                 key={caveat.title}
-                className="rounded-lg border border-zinc-200 bg-white px-4 py-3.5"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3.5"
               >
                 <div className="flex items-baseline gap-2.5">
                   <span className="font-mono text-mini tabular-nums text-zinc-400">

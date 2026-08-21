@@ -52,7 +52,7 @@ export function ManualClaimForm({
             value={retailerId}
             onChange={(event) => setRetailerId(event.target.value)}
             required
-            className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
+            className="mt-2 block w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
           >
             <option value="">Choose a retailer</option>
             {retailerOptions.map((retailer) => (
@@ -77,14 +77,14 @@ export function ManualClaimForm({
               onChange={(event) => setOrderDate(event.target.value)}
               required
               placeholder="YYYY-MM-DD"
-              className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
+              className="mt-2 block w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-body text-zinc-900 outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021]"
             />
           </div>
           <div>
             <label htmlFor="manual-order-value" className="block text-detail font-medium text-zinc-700">
               Order value
             </label>
-            <div className="mt-2 flex overflow-hidden rounded-lg border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
+            <div className="mt-2 flex overflow-hidden rounded-xl border border-zinc-300 bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021]">
               <span className="border-r border-zinc-200 px-3 py-2.5 text-body text-zinc-500">₹</span>
               <input
                 id="manual-order-value"
@@ -113,7 +113,7 @@ export function ManualClaimForm({
           <button
             type="submit"
             disabled={!canSubmit}
-            className="brand-button rounded-lg px-5 py-2.5 text-body font-semibold disabled:cursor-not-allowed disabled:bg-zinc-300"
+            className="brand-button rounded-full px-5 py-2.5 text-body font-semibold disabled:cursor-not-allowed disabled:bg-zinc-300"
           >
             Continue diagnosis
           </button>

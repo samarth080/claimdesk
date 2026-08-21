@@ -16,8 +16,8 @@ export function MatchDiagnostics({
   retailerNames: Record<string, string>;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-100 bg-zinc-50/70 px-4 py-2.5">
+    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-100 brand-subtle px-4 py-2.5">
         <p className="text-body font-semibold text-zinc-900">
           Order matching
         </p>
@@ -46,7 +46,7 @@ export function MatchDiagnostics({
                   {formatIndiaDateTime(candidate.orderedAt)}
                 </p>
                 <span
-                  className={`border px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.1em] ${
+                  className={`border px-1.5 py-0.5 rounded-full font-mono text-micro uppercase tracking-[0.1em] ${
                     candidate.selected
                       ? "border-emerald-300 bg-emerald-50 text-emerald-800"
                       : candidate.passed

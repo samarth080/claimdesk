@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** Headings and the wordmark. Geometric and friendly, like the category
+ *  labels and offer banners on a cashback storefront. */
+const poppins = Poppins({
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
 });
 
+/** Everything else. Holds up at 10–13px, where most of this product lives. */
+const inter = Inter({
+  variable: "--font-body",
+  subsets: ["latin"],
+});
+
+/** IDs, timestamps, field values and amounts. */
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -21,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* Editor previews and browser extensions add classes to body before
           React hydrates. The className here is static, so suppressing the

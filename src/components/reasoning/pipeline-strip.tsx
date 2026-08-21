@@ -38,7 +38,7 @@ export function PipelineStrip({
 
   return (
     <ol
-      className={`grid gap-px overflow-hidden rounded-lg border sm:grid-cols-4 ${
+      className={`grid gap-px overflow-hidden rounded-xl border sm:grid-cols-4 ${
         loud ? "border-zinc-300 bg-zinc-300" : "border-zinc-200 bg-zinc-200"
       }`}
     >

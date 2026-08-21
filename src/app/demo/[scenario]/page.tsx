@@ -72,7 +72,7 @@ export default async function DemoCasePage({ params }: CasePageProps) {
   const next = DEMO_SCENARIOS[(index + 1) % DEMO_SCENARIOS.length];
 
   return (
-    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+    <main className="min-h-screen bg-background text-zinc-950">
       <AppHeader active="demo" subtitle="Worked case file" maxWidth="wide" />
 
       <div className="mx-auto max-w-[1180px] px-5 py-8 sm:px-8 lg:py-10">
@@ -90,12 +90,12 @@ export default async function DemoCasePage({ params }: CasePageProps) {
                 Case {scenario.number}
               </span>
               <span
-                className={`border px-2 py-0.5 text-mini font-medium ${OUTCOME_STYLES[scenario.outcome]}`}
+                className={`border px-2 py-0.5 rounded-full text-mini font-medium ${OUTCOME_STYLES[scenario.outcome]}`}
               >
                 {scenario.outcome}
               </span>
               {scenario.messy ? (
-                <span className="border border-zinc-300 bg-white px-2 py-0.5 font-mono text-micro uppercase tracking-[0.1em] text-zinc-600">
+                <span className="border border-zinc-300 bg-white px-2 py-0.5 rounded-full font-mono text-micro uppercase tracking-[0.1em] text-zinc-600">
                   Messy input
                 </span>
               ) : null}
@@ -110,14 +110,14 @@ export default async function DemoCasePage({ params }: CasePageProps) {
 
           <Link
             href={`/?demo=${scenario.key}`}
-            className="brand-button w-fit shrink-0 rounded-lg px-4 py-2.5 text-body font-semibold transition"
+            className="brand-button w-fit shrink-0 rounded-full px-4 py-2.5 text-body font-semibold transition"
           >
             Run this claim live →
           </Link>
         </header>
 
         {demoCase.drift ? (
-          <div className="mt-6 rounded-lg border border-amber-300 bg-amber-50/70 px-4 py-3.5">
+          <div className="mt-6 rounded-xl border border-amber-300 bg-amber-50/70 px-4 py-3.5">
             <p className="font-mono text-micro uppercase tracking-[0.14em] text-amber-900">
               Seeded evidence has aged · showing {demoCase.drift.actual}, written for{" "}
               {demoCase.drift.expected}
@@ -134,12 +134,12 @@ export default async function DemoCasePage({ params }: CasePageProps) {
           blurb="Free text, exactly as submitted"
         >
           <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
-            <blockquote className="rounded-lg border border-zinc-200 bg-white px-4 py-3.5 text-body leading-7 text-zinc-800">
+            <blockquote className="rounded-xl border border-zinc-200 bg-white px-4 py-3.5 text-body leading-7 text-zinc-800">
               &ldquo;{scenario.rawText}&rdquo;
             </blockquote>
 
-            <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
-              <p className="border-b border-zinc-100 bg-zinc-50/70 px-4 py-2.5 text-body font-semibold text-zinc-900">
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+              <p className="border-b border-zinc-100 brand-subtle px-4 py-2.5 text-body font-semibold text-zinc-900">
                 What the system understood
               </p>
               <dl className="divide-y divide-zinc-100">
@@ -175,7 +175,7 @@ export default async function DemoCasePage({ params }: CasePageProps) {
                   </div>
                 ))}
               </dl>
-              <p className="border-t border-zinc-100 bg-zinc-50/60 px-4 py-2.5 text-mini leading-5 text-zinc-600">
+              <p className="border-t border-zinc-100 brand-subtle px-4 py-2.5 text-mini leading-5 text-zinc-600">
                 {parse.note}
               </p>
             </div>
@@ -203,7 +203,7 @@ export default async function DemoCasePage({ params }: CasePageProps) {
           title="What the shopper got back"
           blurb="The exact message sent"
         >
-          <div className="rounded-lg border border-zinc-200 bg-white px-4 py-3.5">
+          <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3.5">
             <p className="max-w-3xl text-body leading-7 text-zinc-800">
               {demoCase.resolutionMessage}
             </p>
@@ -216,7 +216,7 @@ export default async function DemoCasePage({ params }: CasePageProps) {
           </div>
 
           {demoCase.clarifyingQuestion ? (
-            <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/50 px-4 py-3.5">
+            <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50/50 px-4 py-3.5">
               <p className="font-mono text-micro uppercase tracking-[0.14em] text-amber-800">
                 Question asked ·{" "}
                 {demoCase.clarifyingQuestion.candidateCountBefore} candidates → ~
@@ -234,7 +234,7 @@ export default async function DemoCasePage({ params }: CasePageProps) {
           ) : null}
 
           {demoCase.limitation ? (
-            <div className="mt-3 rounded-lg border border-zinc-300 bg-white px-4 py-3.5">
+            <div className="mt-3 rounded-xl border border-zinc-300 bg-white px-4 py-3.5">
               <p className="font-mono text-micro uppercase tracking-[0.14em] text-zinc-500">
                 Known limitation
               </p>

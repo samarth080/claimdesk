@@ -69,14 +69,14 @@ export function CaseArtifacts({ artifacts }: { artifacts: CaseArtifact[] }) {
         {artifacts.map((artifact) => (
           <figure
             key={artifact.id}
-            className="overflow-hidden rounded-lg border border-zinc-200 bg-white"
+            className="overflow-hidden rounded-xl border border-zinc-200 bg-white"
           >
-            <figcaption className="border-b border-zinc-100 bg-zinc-50/70 px-4 py-2.5">
+            <figcaption className="border-b border-zinc-100 brand-subtle px-4 py-2.5">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                 <p className="text-body font-semibold text-zinc-900">
                   {artifact.title}
                 </p>
-                <span className="border border-zinc-300 px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.1em] text-zinc-500">
+                <span className="border border-zinc-300 px-1.5 py-0.5 rounded-full font-mono text-micro uppercase tracking-[0.1em] text-zinc-500">
                   Sample · {ARTIFACT_KIND_LABELS[artifact.kind]}
                 </span>
               </div>
@@ -90,7 +90,7 @@ export function CaseArtifacts({ artifacts }: { artifacts: CaseArtifact[] }) {
 
             <ArtifactBody artifact={artifact} />
 
-            <div className="border-t border-zinc-100 bg-zinc-50/60 px-4 py-2.5">
+            <div className="border-t border-zinc-100 brand-subtle px-4 py-2.5">
               <p className="font-mono text-micro uppercase tracking-[0.12em] text-zinc-500">
                 Read by rule · {artifact.citedBy}
               </p>
@@ -101,7 +101,7 @@ export function CaseArtifacts({ artifacts }: { artifacts: CaseArtifact[] }) {
                 {artifact.corroborates.map((field) => (
                   <span
                     key={field}
-                    className="border border-zinc-200 bg-white px-1.5 py-0.5 font-mono text-micro text-zinc-600"
+                    className="border border-zinc-200 bg-white px-1.5 py-0.5 rounded-full font-mono text-micro text-zinc-600"
                   >
                     {field}
                   </span>

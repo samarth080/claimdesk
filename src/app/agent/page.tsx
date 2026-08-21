@@ -36,7 +36,7 @@ export default async function AgentPage() {
   const queue = await loadAgentQueue();
 
   return (
-    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+    <main className="min-h-screen bg-background text-zinc-950">
       <AppHeader active="agent" subtitle="CashKaro support operations" maxWidth="wide" />
 
       <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:py-10">
@@ -67,7 +67,7 @@ export default async function AgentPage() {
 
         <section
           aria-label="Queue summary"
-          className="brand-panel mt-7 grid overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-4"
+          className="brand-panel mt-7 grid overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-4"
         >
           <Metric
             label="Open escalations"

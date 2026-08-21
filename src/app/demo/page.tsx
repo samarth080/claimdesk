@@ -23,7 +23,7 @@ const REVIEW_PATH = [
 
 export default function DemoPage() {
   return (
-    <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
+    <main className="min-h-screen bg-background text-zinc-950">
       <AppHeader active="demo" subtitle="CashKaro scenario launcher" />
 
       <div className="mx-auto max-w-[1280px] px-5 py-8 sm:px-8 lg:py-10">
@@ -37,7 +37,7 @@ export default function DemoPage() {
               Each case file runs the real engine over the seeded evidence and shows the whole path: the message as written, what was parsed from it, which orders the matcher considered, all 13 rules in order, and the reply that went back.
             </p>
           </div>
-          <aside className="brand-panel rounded-xl border p-4">
+          <aside className="brand-panel rounded-2xl border p-4">
             <p className="font-mono text-micro uppercase tracking-[0.15em] text-zinc-500">Recommended four-minute path</p>
             <ol className="mt-3 divide-y divide-zinc-100">
               {REVIEW_PATH.map(([number, name, detail]) => (
@@ -50,18 +50,18 @@ export default function DemoPage() {
           </aside>
         </div>
 
-        <section aria-label="Demo case files" className="mt-8 grid gap-px overflow-hidden rounded-xl border border-zinc-200 bg-zinc-200 shadow-[0_8px_24px_rgba(24,24,27,0.045)] sm:grid-cols-2 xl:grid-cols-3">
+        <section aria-label="Demo case files" className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-200 shadow-[0_8px_24px_rgba(24,24,27,0.045)] sm:grid-cols-2 xl:grid-cols-3">
           {DEMO_SCENARIOS.map((scenario) => (
             <article key={scenario.key} className="flex min-h-60 flex-col bg-white p-5 transition hover:bg-[#fffaf6]">
               <div className="flex items-start justify-between gap-3">
                 <span className="font-mono text-mini text-zinc-400">{scenario.number}</span>
                 <div className="flex flex-wrap items-center justify-end gap-1.5">
                   {scenario.messy ? (
-                    <span className="border border-zinc-300 px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.1em] text-zinc-600">
+                    <span className="border border-zinc-300 px-1.5 py-0.5 rounded-full font-mono text-micro uppercase tracking-[0.1em] text-zinc-600">
                       Messy input
                     </span>
                   ) : null}
-                  <span className={`border px-2 py-1 text-micro font-medium ${OUTCOME_STYLES[scenario.outcome]}`}>
+                  <span className={`border px-2 py-1 rounded-full text-micro font-medium ${OUTCOME_STYLES[scenario.outcome]}`}>
                     {scenario.outcome}
                   </span>
                 </div>
@@ -73,14 +73,14 @@ export default function DemoPage() {
                 <div className="mt-2 flex items-center gap-2">
                   <Link
                     href={`/demo/${scenario.key}`}
-                    className="brand-button flex flex-1 items-center justify-between rounded-lg px-3 py-2.5 text-detail font-semibold transition"
+                    className="brand-button flex flex-1 items-center justify-between rounded-full px-3 py-2.5 text-detail font-semibold transition"
                   >
                     Open case file
                     <span aria-hidden="true" className="font-mono">→</span>
                   </Link>
                   <Link
                     href={`/?demo=${scenario.key}`}
-                    className="shrink-0 rounded-lg border border-zinc-300 px-3 py-2.5 text-detail font-medium text-zinc-700 transition hover:border-zinc-500 hover:text-zinc-950"
+                    className="shrink-0 rounded-xl border border-zinc-300 px-3 py-2.5 text-detail font-medium text-zinc-700 transition hover:border-zinc-500 hover:text-zinc-950"
                   >
                     Run live
                   </Link>

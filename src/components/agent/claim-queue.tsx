@@ -8,7 +8,7 @@ import { CasePacket } from "./case-packet";
 export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
   if (claims.length === 0) {
     return (
-      <div className="brand-panel rounded-xl border px-6 py-12 text-center">
+      <div className="brand-panel rounded-2xl border px-6 py-12 text-center">
         <p className="text-body font-medium text-zinc-900">No escalated claims</p>
         <p className="mt-1 text-detail text-zinc-500">
           Correctly escalated cases will appear here with their evidence packet.
@@ -18,7 +18,7 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.045)]">
+    <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.045)]">
       <div className="hidden grid-cols-[130px_minmax(180px,1fr)_180px_120px_130px_92px] gap-4 border-b border-zinc-200 bg-zinc-50 px-5 py-2.5 font-mono text-micro uppercase tracking-[0.14em] text-zinc-400 lg:grid">
         <span>Case</span>
         <span>Claimant</span>
@@ -65,7 +65,7 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
                   ? "—"
                   : formatRupees(claim.claimedOrderValue)}
               </p>
-              <span className="w-fit border border-blue-200 bg-blue-50 px-2 py-1 text-micro font-medium text-blue-800">
+              <span className="w-fit border border-blue-200 bg-blue-50 px-2 py-1 rounded-full text-micro font-medium text-blue-800">
                 {claim.route}
               </span>
               <span className="flex items-center justify-end gap-2 text-mini font-medium text-zinc-500 group-open:text-blue-700">
@@ -81,7 +81,7 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
             </div>
           </summary>
 
-          <div className="border-t border-zinc-200 bg-zinc-50/60 px-5 py-6">
+          <div className="border-t border-zinc-200 brand-subtle px-5 py-6">
             <div className="grid gap-5 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
               <div>
                 <div className="border-l-2 border-blue-500 pl-4">
@@ -92,11 +92,11 @@ export function ClaimQueue({ claims }: { claims: AgentClaimView[] }) {
                     {claim.diagnosisSummary}
                   </p>
                 </div>
-                <blockquote className="mt-5 rounded-lg border border-zinc-200 bg-white p-4 text-body leading-6 text-zinc-600">
+                <blockquote className="mt-5 rounded-xl border border-zinc-200 bg-white p-4 text-body leading-6 text-zinc-600">
                   &ldquo;{claim.rawText}&rdquo;
                 </blockquote>
                 {claim.clarification ? (
-                  <dl className="mt-4 grid gap-3 rounded-lg border border-amber-200 bg-amber-50/60 p-4">
+                  <dl className="mt-4 grid gap-3 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
                     <div>
                       <dt className="font-mono text-micro uppercase tracking-[0.12em] text-amber-700">
                         Clarifying question

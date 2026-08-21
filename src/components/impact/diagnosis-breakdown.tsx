@@ -59,7 +59,7 @@ export function DiagnosisBreakdown({
         </div>
       </div>
 
-      <div className="mt-5 overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.04)]">
+      <div className="mt-5 overflow-x-auto rounded-2xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(24,24,27,0.04)]">
         <table className="w-full min-w-[820px] border-collapse text-left">
           <thead className="border-b border-zinc-200 bg-zinc-50 font-mono text-micro uppercase tracking-[0.14em] text-zinc-400">
             <tr>
@@ -73,7 +73,7 @@ export function DiagnosisBreakdown({
           </thead>
           <tbody className="divide-y divide-zinc-100">
             {rows.map((row) => (
-              <tr key={row.code} className="hover:bg-zinc-50/70">
+              <tr key={row.code} className="hover:brand-subtle">
                 <td className="px-4 py-3.5">
                   <p className="text-detail font-medium text-zinc-800">{row.label}</p>
                   <p className="mt-1 font-mono text-micro text-zinc-400">{row.code}</p>
