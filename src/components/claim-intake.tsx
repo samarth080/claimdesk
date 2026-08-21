@@ -10,6 +10,7 @@ import {
 import { AppHeader } from "@/components/app-header";
 import { ClarifyingQuestionForm } from "@/components/clarifying-question-form";
 import { DecisionPath } from "@/components/reasoning/decision-path";
+import { PipelineStrip } from "@/components/reasoning/pipeline-strip";
 import { ManualClaimForm } from "@/components/manual-claim-form";
 import type {
   ClaimIntakePayload,
@@ -26,13 +27,6 @@ const PROGRESS_STEPS = [
   { label: "Matching order", detail: "Retailer, date and value" },
   { label: "Reading the journey", detail: "Click, device and referral" },
   { label: "Applying policy", detail: "Ordered rule precedence" },
-] as const;
-
-const EVIDENCE_CHECKS = [
-  ["01", "Order match", "Retailer, amount and timing"],
-  ["02", "Tracking trail", "Click and session integrity"],
-  ["03", "Retailer rules", "SLA, category and coupon policy"],
-  ["04", "Correct route", "Resolve, clarify or escalate"],
 ] as const;
 
 const PARSER_SOURCE_LABELS = {
@@ -287,11 +281,11 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
 
   return (
     <main className="min-h-screen bg-[#f6f7f9] text-zinc-950">
-      <AppHeader active="intake" subtitle="CashKaro support concept" />
+      <AppHeader active="intake" subtitle="Independent prototype · synthetic data" />
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:py-16">
+      <div className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:py-14">
         <div className="min-w-0">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             {demoActive && demoScenario ? (
               <div className="mb-6 flex flex-col gap-3 rounded-r-lg border-l-[3px] border-[#f37021] bg-[#fff5ed] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
@@ -308,16 +302,46 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
               </div>
             ) : null}
             <p className="brand-eyebrow font-mono text-[11px] uppercase tracking-[0.18em]">
-              CashKaro support concept
+              Cashback claim triage
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-zinc-950 sm:text-4xl">
-              Tell us what happened.
+              Missing cashback, answered from the evidence.
             </h1>
-            <p className="mt-4 max-w-xl text-[15px] leading-7 text-zinc-600">
-              Write it as you would to support. We’ll match the order, inspect the
-              tracking evidence and give you a specific answer.
-            </p>
+            <div className="mt-4 max-w-2xl space-y-2 text-[15px] leading-7 text-zinc-600">
+              <p>
+                Missing cashback is the largest source of support tickets on a
+                cashback platform, and answering one means digging through click
+                logs, order records and retailer terms to find out which of a
+                dozen ordinary causes applies.
+              </p>
+              <p>
+                This is for the support team working that queue, and for the
+                shopper waiting on a straight answer.
+              </p>
+              <p>
+                ClaimDesk reads the same records an agent would, runs thirteen
+                rules in a fixed order until one matches, and either answers the
+                claim outright or hands over a case that is already diagnosed.
+                No language model decides the outcome.
+              </p>
+            </div>
           </div>
+
+          {status === "complete" ? null : (
+            <div className="mt-7 max-w-4xl">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
+                What happens to your claim
+              </p>
+              <div className="mt-2">
+                <PipelineStrip />
+              </div>
+              <p className="mt-3 text-[11px] leading-5 text-zinc-500">
+                An independent prototype running on synthetic data. It is not
+                affiliated with or endorsed by any company, and every shopper,
+                retailer and transaction in it is invented.
+              </p>
+            </div>
+          )}
 
           <div className={`mt-8 ${status === "complete" ? "" : "max-w-2xl"}`}>
             {status === "idle" ? (
@@ -399,25 +423,6 @@ export function ClaimIntake({ demoScenario }: { demoScenario: DemoLaunch | null 
           </div>
         </div>
 
-        <aside className="brand-panel h-fit rounded-xl border p-5 lg:mt-28">
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-            What we check
-          </p>
-          <ol className="mt-4 space-y-4">
-            {EVIDENCE_CHECKS.map(([number, title, detail]) => (
-              <li key={number} className="grid grid-cols-[28px_1fr] gap-2">
-                <span className="font-mono text-[11px] text-zinc-400">{number}</span>
-                <div>
-                  <p className="text-xs font-medium text-zinc-800">{title}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-zinc-500">{detail}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-6 border-l-2 border-[#0b5fc6] bg-[#eef6ff] px-3 py-2 text-[11px] leading-5 text-zinc-600">
-            Diagnosis is deterministic. No language model chooses the outcome.
-          </p>
-        </aside>
       </div>
     </main>
   );
